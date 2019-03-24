@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F5CEE1F2246FC5100E10009 /* ModelActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5CEE1E2246FC5100E10009 /* ModelActivity.swift */; };
+		7F5CEE212247D6B300E10009 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5CEE202247D6B300E10009 /* Clock.swift */; };
 		7FF54AF22245183200BE467E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF54AF12245183200BE467E /* AppDelegate.swift */; };
 		7FF54AF42245183200BE467E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF54AF32245183200BE467E /* ViewController.swift */; };
 		7FF54AF72245183200BE467E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF54AF52245183200BE467E /* Main.storyboard */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F5CEE1E2246FC5100E10009 /* ModelActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelActivity.swift; sourceTree = "<group>"; };
+		7F5CEE202247D6B300E10009 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		7FF54AEE2245183200BE467E /* PVModel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PVModel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF54AF12245183200BE467E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FF54AF32245183200BE467E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				7FF54AFD2245183400BE467E /* Info.plist */,
 				7FF54B1F2245196E00BE467E /* Cavity.swift */,
 				7FF54B21224530F800BE467E /* Pacemaker.swift */,
+				7F5CEE1E2246FC5100E10009 /* ModelActivity.swift */,
+				7F5CEE202247D6B300E10009 /* Clock.swift */,
 			);
 			path = PVModel;
 			sourceTree = "<group>";
@@ -262,6 +268,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F5CEE212247D6B300E10009 /* Clock.swift in Sources */,
+				7F5CEE1F2246FC5100E10009 /* ModelActivity.swift in Sources */,
 				7FF54B202245196E00BE467E /* Cavity.swift in Sources */,
 				7FF54AF42245183200BE467E /* ViewController.swift in Sources */,
 				7FF54AF22245183200BE467E /* AppDelegate.swift in Sources */,

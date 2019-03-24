@@ -34,24 +34,24 @@ class Cavity {
 }
 
 class AortaCavity: Cavity {
-    init(pacemaker: Pacemaker, volumen: Double) {
-        super.init(pacemarker:pacemaker, volumen: volumen)
+    override init(pacemaker: Pacemaker, volumen: Double) {
+        super.init(pacemaker:pacemaker, volumen: volumen)
     }
     func getIntrinsicPressure(volumen: Double) -> Double {
         return volumen * 1.5
     }
 }
 class ArteryCavity: Cavity {
-    init(pacemaker: Pacemaker, volumen: Double) {
-        super.init(pacemarker:pacemaker, Volumen:volumen)
+    override init(pacemaker: Pacemaker, volumen: Double) {
+        super.init(pacemaker:pacemaker, volumen:volumen)
     }
     func getIntrinsicPressure(volumen: Double) -> Double {
         return volumen * 0.15
     }
 }
 class VeinCavity: Cavity {
-    init(pacemaker: Pacemaker, volumen: Double) {
-        super.init(pacemaker, volumen)
+    override init(pacemaker: Pacemaker, volumen: Double) {
+        super.init(pacemaker:pacemaker, volumen:volumen)
     }
     func getIntrinsicPressure(volumen: Double) -> Double {
         return volumen * 0.003
@@ -64,11 +64,13 @@ class ContrCavity: Cavity {
     var relax: Double
     var contr: Double
     init(pacemaker: Pacemaker, volumen: Double, slackVol: Double, contrVol: Double, relax: Double, contr: Double) {
-        super.init(pacemaker, volumen)
         self.slackRadious = pow(slackVol * 3 / (Double.pi * 4), 1.0 / 3.0)
         self.contrRadious = pow(contrVol * 3 / (Double.pi * 4), 1.0 / 3.0)
+        self.contrElast = pow(contrVol / slackVol, 1.0 / 3.0)
+        self.relax = relax
+        self.contr = contr
         
-        contrElast = pow(contrVol / slackVol, 1.0 / 3.0)
+        super.init(pacemaker:pacemaker, volumen:volumen)
     }
     func getIntrinsicPressure(volumen: Double)-> Double {
         let contrFactor = contractilityFactor
@@ -83,7 +85,7 @@ class ContrCavity: Cavity {
     }
 }
 class VentriculeCavity: ContrCavity {
-    init (pacemaker: Pacemaker, volumen: Double, slackVol: Double, contrVol: Double, relax: Double, contr: Double) {
+    override init (pacemaker: Pacemaker, volumen: Double, slackVol: Double, contrVol: Double, relax: Double, contr: Double) {
         super.init(pacemaker:pacemaker, volumen:volumen, slackVol:slackVol, contrVol:contrVol, relax:relax, contr: contr)
     }
     override var contractilityFactor:Double {
@@ -93,12 +95,12 @@ class VentriculeCavity: ContrCavity {
     }
 }
 class AtriumCavity: ContrCavity {
-    init(pacemaker: Pacemaker, volumen: Double, slackVol: Double, contrVol: Double, relax: Double, contr: Double) {
+    override init(pacemaker: Pacemaker, volumen: Double, slackVol: Double, contrVol: Double, relax: Double, contr: Double) {
         super.init(pacemaker:pacemaker, volumen:volumen, slackVol:slackVol, contrVol:contrVol, relax:relax, contr: contr)
     }
     override var contractilityFactor:Double {
         get {
-            pacemaker.auricularContractilityFactor
+            return pacemaker.auricularContractilityFactor
         }
     }
 }

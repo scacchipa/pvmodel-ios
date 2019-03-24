@@ -10,32 +10,34 @@ import Foundation
 
 
 class Pacemaker {
+    
+    var modelController:ModelViewController
     var frecuency: Double;
-    var lastCycle: UInt64 = 0
+    var lastCycle: Int = 0
     var auricularContractilityFactor:Double = 0.0
     var ventrContractilityFactor = 0.0
-    var period: Int64 = 0
+    var period: Int = 0
     var delayMaxContr:Double = 200
     var delayMinContr:Double = 50
-    init(frecuency: Double) {
+    init(modelController:ModelViewController, frecuency: Double) {
+        self.modelController = modelController
         self.frecuency = frecuency
-    
         self.auricularContractilityFactor = 0.0
         self.ventrContractilityFactor = 0.0
-        self.lastCicle = ModelActivity.clock.time
-        self.period = (60000 / self.frecuency).toLong()
+        self.lastCycle = modelController.clock.time
+        self.period = 60000 / Int(self.frecuency)
     }
     
-    func reCalculateFactor(refreshLapse: Float) {
+    func reCalculateFactor(refreshLapse: Double) {
         let sistoleAuricularOnset = 300 / 800 * period
         let diastoleAuricularOffSet = 450 / 800 * period
         let sistoleVentricularOnset = 500 / 800 * period
         
-        if (self.lastCicle + period < ModelActivity.clock.time) {
-            self.lastCicle = ModelActivity.clock.time
+        if (self.lastCycle + period < modelController.clock.time) {
+            self.lastCycle = modelController.clock.time
         }
         
-        let lapse = (ModelActivity.clock.time - self.lastCicle)
+        let lapse = (modelController.clock.time - self.lastCycle)
         
         let auricTrend: Double
         let ventrTrend: Double
@@ -62,11 +64,11 @@ class Pacemaker {
         
         ventrContractilityFactor = (ventrContractilityFactor + shockVentr) / 2 // buffer
         
-        val shockAtrium: Double
+        var shockAtrium: Double
         if (auricularContractilityFactor < auricTrend) {
-            shockAtrium = Math.min(auricularContractilityFactor + 1 / delayMaxContr * refreshLapse, auricTrend)
+            shockAtrium = min(auricularContractilityFactor + 1 / delayMaxContr * refreshLapse, auricTrend)
         } else {
-            shockAtrium = Math.max(auricularContractilityFactor - 1 / delayMinContr * refreshLapse, auricTrend)
+            shockAtrium = max(auricularContractilityFactor - 1 / delayMinContr * refreshLapse, auricTrend)
         }
         
         auricularContractilityFactor = (auricularContractilityFactor + shockAtrium) / 2 // buffer
