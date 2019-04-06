@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,9 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qnl-XJ-PlN">
-                                <rect key="frame" x="67" y="101" width="300" height="350"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BWo-pL-r5D">
                                 <rect key="frame" x="8" y="28" width="359" height="65"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -42,19 +39,23 @@
                                     <constraint firstAttribute="width" constant="51" id="RRv-JI-v3m"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rkk-zU-I32" customClass="ImageRenderView" customModule="PVModel" customModuleProvider="target">
+                                <rect key="frame" x="67" y="101" width="300" height="350"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="qnl-XJ-PlN" firstAttribute="top" secondItem="BWo-pL-r5D" secondAttribute="bottom" constant="8" id="45Q-y3-mwL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="IfW-ab-ngS" secondAttribute="bottom" constant="8" id="66v-zv-26a"/>
                             <constraint firstItem="IfW-ab-ngS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="90f-t5-BSy"/>
                             <constraint firstItem="PcM-6h-flz" firstAttribute="top" secondItem="BWo-pL-r5D" secondAttribute="bottom" constant="8" symbolic="YES" id="DhG-Is-CbF"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qnl-XJ-PlN" secondAttribute="trailing" constant="8" id="FDo-KJ-vfI"/>
                             <constraint firstItem="BWo-pL-r5D" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="Hky-fF-ahf"/>
-                            <constraint firstItem="qnl-XJ-PlN" firstAttribute="leading" secondItem="PcM-6h-flz" secondAttribute="trailing" constant="8" id="PtJ-Xu-gsb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="BWo-pL-r5D" secondAttribute="trailing" constant="8" id="Sdx-5n-ADF"/>
                             <constraint firstItem="BWo-pL-r5D" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="V1u-p9-ir2"/>
-                            <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="qnl-XJ-PlN" secondAttribute="bottom" constant="8" id="bhr-Ha-tFG"/>
+                            <constraint firstItem="rkk-zU-I32" firstAttribute="leading" secondItem="PcM-6h-flz" secondAttribute="trailing" constant="8" id="ZXN-lo-vP9"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rkk-zU-I32" secondAttribute="trailing" constant="8" id="ccY-ls-h4n"/>
+                            <constraint firstItem="rkk-zU-I32" firstAttribute="top" secondItem="BWo-pL-r5D" secondAttribute="bottom" constant="8" id="lI5-4M-aHg"/>
+                            <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="rkk-zU-I32" secondAttribute="bottom" constant="8" id="lxm-z0-2Tg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IfW-ab-ngS" secondAttribute="trailing" constant="8" id="ogF-QO-vYO"/>
                             <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="PcM-6h-flz" secondAttribute="bottom" constant="8" id="sWW-sT-umI"/>
                             <constraint firstItem="PcM-6h-flz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="wBL-Cq-QbO"/>
@@ -62,7 +63,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="qnl-XJ-PlN" id="Eb5-Vt-l1N"/>
+                        <outlet property="imageRenderView" destination="rkk-zU-I32" id="UO2-31-v6w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
