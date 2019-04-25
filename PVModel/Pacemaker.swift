@@ -11,33 +11,35 @@ import Foundation
 
 class Pacemaker {
     
-    var modelController:ModelViewController
+    var modelController:ModelViewController?
     var frecuency: Double;
     var lastCycle: Int = 0
     var auricularContractilityFactor:Double = 0.0
     var ventrContractilityFactor = 0.0
-    var period: Int = 0
-    var delayMaxContr:Double = 200
-    var delayMinContr:Double = 50
-    init(modelController:ModelViewController, frecuency: Double) {
+    var period: Double = 0.0
+    var delayMaxContr:Double = 200.0
+    var delayMinContr:Double = 50.0
+    init(modelController:ModelViewController?, frecuency: Double) {
         self.modelController = modelController
         self.frecuency = frecuency
         self.auricularContractilityFactor = 0.0
         self.ventrContractilityFactor = 0.0
-        self.lastCycle = modelController.clock.time
-        self.period = 60000 / Int(self.frecuency)
+        if modelController != nil {
+            self.lastCycle = modelController!.clock.time
+        }
+        self.period = 60000.0 / self.frecuency
     }
     
     func reCalculateFactor(refreshLapse: Double) {
-        let sistoleAuricularOnset = 300 / 800 * period
-        let diastoleAuricularOffSet = 450 / 800 * period
-        let sistoleVentricularOnset = 500 / 800 * period
+        let sistoleAuricularOnset = 300.0 / 800.0 * period
+        let diastoleAuricularOffSet = 450.0 / 800.0 * period
+        let sistoleVentricularOnset = 500.0 / 800.0 * period
         
-        if (self.lastCycle + period < modelController.clock.time) {
-            self.lastCycle = modelController.clock.time
+        if (self.lastCycle + Int(period) <= modelController!.clock.time) {
+            self.lastCycle = modelController!.clock.time
         }
         
-        let lapse = (modelController.clock.time - self.lastCycle)
+        let lapse = Double(modelController!.clock.time - self.lastCycle)
         
         let auricTrend: Double
         let ventrTrend: Double
@@ -57,21 +59,20 @@ class Pacemaker {
         
         var shockVentr: Double
         if (ventrContractilityFactor < ventrTrend) {
-            shockVentr = min(ventrContractilityFactor + 1 / delayMaxContr * refreshLapse, ventrTrend)
+            shockVentr = min(ventrContractilityFactor + 1.0 / delayMaxContr * refreshLapse, ventrTrend)
         } else {
-            shockVentr = max(ventrContractilityFactor - 1 / delayMinContr * refreshLapse, ventrTrend)
+            shockVentr = max(ventrContractilityFactor - 1.0 / delayMinContr * refreshLapse, ventrTrend)
         }
         
-        ventrContractilityFactor = (ventrContractilityFactor + shockVentr) / 2 // buffer
+        ventrContractilityFactor = (ventrContractilityFactor + shockVentr) / 2.0 // buffer
         
         var shockAtrium: Double
         if (auricularContractilityFactor < auricTrend) {
-            shockAtrium = min(auricularContractilityFactor + 1 / delayMaxContr * refreshLapse, auricTrend)
+            shockAtrium = min(auricularContractilityFactor + 1.0 / delayMaxContr * refreshLapse, auricTrend)
         } else {
-            shockAtrium = max(auricularContractilityFactor - 1 / delayMinContr * refreshLapse, auricTrend)
+            shockAtrium = max(auricularContractilityFactor - 1.0 / delayMinContr * refreshLapse, auricTrend)
         }
         
-        auricularContractilityFactor = (auricularContractilityFactor + shockAtrium) / 2 // buffer
-        
+        auricularContractilityFactor = (auricularContractilityFactor + shockAtrium) / 2.0 // buffer
     }
 }
