@@ -31,6 +31,9 @@ class ModelViewController : UIViewController {
     var counter = 0;
     
     @IBOutlet weak var imageRenderView: ImageRenderView!
+    @IBOutlet weak var velSlider: VerticalSlider!
+    @IBOutlet weak var preloadSlider: UISlider!
+    @IBOutlet weak var afterloadSlider: UISlider!
     
     var timerThread: Timer? = nil
     var semaphore: DispatchSemaphore? = nil

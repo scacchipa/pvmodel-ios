@@ -10,6 +10,7 @@
 		7F5CEE1F2246FC5100E10009 /* ModelActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5CEE1E2246FC5100E10009 /* ModelActivity.swift */; };
 		7F5CEE212247D6B300E10009 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5CEE202247D6B300E10009 /* Clock.swift */; };
 		7F9F00892269949A0004185C /* Valve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F00882269949A0004185C /* Valve.swift */; };
+		7FC28882227BA8E300EBFB99 /* UserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC28881227BA8E300EBFB99 /* UserInterface.swift */; };
 		7FF54AF22245183200BE467E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF54AF12245183200BE467E /* AppDelegate.swift */; };
 		7FF54AF42245183200BE467E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF54AF32245183200BE467E /* ViewController.swift */; };
 		7FF54AF72245183200BE467E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF54AF52245183200BE467E /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 		7F5CEE1E2246FC5100E10009 /* ModelActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelActivity.swift; sourceTree = "<group>"; };
 		7F5CEE202247D6B300E10009 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		7F9F00882269949A0004185C /* Valve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valve.swift; sourceTree = "<group>"; };
+		7FC28881227BA8E300EBFB99 /* UserInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterface.swift; sourceTree = "<group>"; };
 		7FF54AEE2245183200BE467E /* PVModel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PVModel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF54AF12245183200BE467E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FF54AF32245183200BE467E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				7F5CEE1E2246FC5100E10009 /* ModelActivity.swift */,
 				7F5CEE202247D6B300E10009 /* Clock.swift */,
 				7F9F00882269949A0004185C /* Valve.swift */,
+				7FC28881227BA8E300EBFB99 /* UserInterface.swift */,
 			);
 			path = PVModel;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				7FF54AF42245183200BE467E /* ViewController.swift in Sources */,
 				7FF54AF22245183200BE467E /* AppDelegate.swift in Sources */,
 				7F9F00892269949A0004185C /* Valve.swift in Sources */,
+				7FC28882227BA8E300EBFB99 /* UserInterface.swift in Sources */,
 				7FF54B22224530F800BE467E /* Pacemaker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
