@@ -9,7 +9,7 @@
 import Foundation
 
 class Valve {
-    let resistance: Double// (mmHg/mseg/ml)
+    public var resistance: Double// (mmHg/mseg/ml)
     let preCavity: Cavity
     let postCavity: Cavity
     

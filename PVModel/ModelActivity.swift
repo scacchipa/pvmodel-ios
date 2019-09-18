@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 
 class ModelViewController : UIViewController {
+    let lapseOfTime = 10.0;
     var clock:Clock
     var pacemaker:Pacemaker
     var leftAtrium: AtriumCavity
@@ -32,8 +33,9 @@ class ModelViewController : UIViewController {
     
     @IBOutlet weak var imageRenderView: ImageRenderView!
     @IBOutlet weak var velSlider: VerticalSlider!
-    @IBOutlet weak var preloadSlider: UISlider!
-    @IBOutlet weak var afterloadSlider: UISlider!
+    @IBOutlet weak var preloadSlider: HorizontalSlider!
+    @IBOutlet weak var afterloadSlider: HorizontalSlider!
+    @IBOutlet weak var contractSlider: HorizontalSlider!
     
     var timerThread: Timer? = nil
     var semaphore: DispatchSemaphore? = nil
@@ -86,46 +88,60 @@ class ModelViewController : UIViewController {
         
         pacemaker.modelController = self;
         semaphore = DispatchSemaphore(value: 1)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         imageRenderView.setCavity(cavity:leftVentricle)
         imageRenderView.createSubLayers()
         imageRenderView.setParent(parent:self)
-        imageRenderView.setNeedsDisplay()
+        
+        velSlider.addTarget(self, action: #selector(velocityChanged), for: UIControl.Event.valueChanged)
+        preloadSlider.addTarget(self, action: #selector(preloadChanged), for: UIControl.Event.valueChanged)
+        afterloadSlider.addTarget(self, action: #selector(afterloadChanged), for: UIControl.Event.valueChanged)
+        contractSlider.addTarget(self, action: #selector(contractilityChanged), for: UIControl.Event.valueChanged)
+        timerThread = Timer.scheduledTimer(timeInterval: TimeInterval(lapseOfTime / 1000), target: self, selector: #selector(mainRefresh), userInfo: nil,  repeats: true)
+    }
+    @objc func mainRefresh(timer: Timer) {
+        
+        self.pacemaker.reCalculateFactor(refreshLapse: lapseOfTime)
+        
+        for valve in self.valves {
+            do {
+                try valve.calculateFlows(tempo: lapseOfTime)
+            } catch {
+                print("Error al calcular flujos")
+            }
+        }
+        for cavity in self.cavities {
+            cavity.calculateVolumen()
+        }
+        self.semaphore!.wait()
+        self.imageRenderView.updateValue()
+        self.semaphore!.signal()
+        
+        self.counter += 1
+        if (self.counter == 1) {
+            self.imageRenderView.setNeedsDisplay()
+            self.counter = 0
+        }
+        self.clock.advance(lapse: Int(lapseOfTime))
+    }
 
-        timerThread = Timer.scheduledTimer(withTimeInterval: 0.002, repeats: true,  block: {timer in
-            
-            let lapseOfTime = 2.0;
-            self.pacemaker.reCalculateFactor(refreshLapse: lapseOfTime)
-            
-            for valve in self.valves {
-                do {
-                    try valve.calculateFlows(tempo: lapseOfTime)
-                } catch is Error {
-                    print("Error al calcular flujos")
-                }
-            }
-            for cavity in self.cavities {
-                cavity.calculateVolumen()
-            }
-            self.semaphore!.wait()
-            self.imageRenderView.updateValue()
-            self.semaphore!.signal()
-            
-            self.counter += 1
-            if (self.counter == 1) {
-                self.imageRenderView.setNeedsDisplay()
-                self.counter = 0
-            }
-            self.clock.advance(lapse: Int(lapseOfTime))
-
-            
-            
-        } )
+@objc func velocityChanged(control: VerticalSlider, withEvent event: UIEvent) {
+    timerThread!.invalidate()
+    timerThread = Timer.scheduledTimer(timeInterval: TimeInterval(lapseOfTime / Double(control.value) * 0.1), target: self, selector: #selector(mainRefresh), userInfo: nil,  repeats: true)
+    }
+@objc func preloadChanged(control: HorizontalSlider, withEvent event: UIEvent) {
+    veinCavity.volumen = Double(control.value * 227);
+    }
+@objc func afterloadChanged(control: HorizontalSlider, withEvent event: UIEvent) {
+    arteryValve.resistance = Double(control.value);
+    }
+@objc func contractilityChanged(control: HorizontalSlider, with event: UIEvent) {
+    leftVentricle.contr = Double(control.value);
     }
 }
-
 class ImageRenderView: UIView   {
 
     let textSize:CGFloat = 16

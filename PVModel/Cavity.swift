@@ -69,7 +69,7 @@ class ContrCavity: Cavity {
     var contrRadious: Double
     var contrElast: Double
     var relax: Double
-    var contr: Double
+    public var contr: Double
     init(pacemaker: Pacemaker, volumen: Double, slackVol: Double, contrVol: Double, relax: Double, contr: Double) {
         self.slackRadious = pow(slackVol * 3.0 / (Double.pi * 4.0), 1.0 / 3.0)
         self.contrRadious = pow(contrVol * 3.0 / (Double.pi * 4.0), 1.0 / 3.0)
