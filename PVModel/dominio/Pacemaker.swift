@@ -10,8 +10,7 @@ import Foundation
 
 
 class Pacemaker {
-    
-    var modelController:ModelViewController?
+    var clock: Clock
     var frecuency: Double;
     var lastCycle: Int = 0
     var auricularContractilityFactor:Double = 0.0
@@ -19,14 +18,12 @@ class Pacemaker {
     var period: Double = 0.0
     var delayMaxContr:Double = 200.0
     var delayMinContr:Double = 50.0
-    init(modelController:ModelViewController?, frecuency: Double) {
-        self.modelController = modelController
+    init(clock: Clock, frecuency: Double) {
+        self.clock = clock
         self.frecuency = frecuency
         self.auricularContractilityFactor = 0.0
         self.ventrContractilityFactor = 0.0
-        if modelController != nil {
-            self.lastCycle = modelController!.clock.time
-        }
+        self.lastCycle = clock.time
         self.period = 60000.0 / self.frecuency
     }
     
@@ -35,11 +32,11 @@ class Pacemaker {
         let diastoleAuricularOffSet = 450.0 / 800.0 * period
         let sistoleVentricularOnset = 500.0 / 800.0 * period
         
-        if (self.lastCycle + Int(period) <= modelController!.clock.time) {
-            self.lastCycle = modelController!.clock.time
+        if (self.lastCycle + Int(period) <= clock.time) {
+            self.lastCycle = clock.time
         }
         
-        let lapse = Double(modelController!.clock.time - self.lastCycle)
+        let lapse = Double(clock.time - self.lastCycle)
         
         let auricTrend: Double
         let ventrTrend: Double

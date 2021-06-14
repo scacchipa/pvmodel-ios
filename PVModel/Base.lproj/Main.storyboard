@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,9 +19,51 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BWo-pL-r5D">
                                 <rect key="frame" x="8" y="28" width="359" height="65"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLP-uK-mME">
+                                        <rect key="frame" x="4" y="4" width="85" height="57"/>
+                                        <state key="normal" title="P/V">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOI-TX-AKg">
+                                        <rect key="frame" x="93" y="4" width="84.5" height="57"/>
+                                        <state key="normal" title="V/t">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJx-rs-Yia">
+                                        <rect key="frame" x="181.5" y="4" width="85" height="57"/>
+                                        <state key="normal" title="P/t">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pj4-uN-4dm">
+                                        <rect key="frame" x="270.5" y="4" width="84.5" height="57"/>
+                                        <state key="normal" title="Contr">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="IJx-rs-Yia" firstAttribute="width" secondItem="Pj4-uN-4dm" secondAttribute="width" id="1cd-yD-MOR"/>
+                                    <constraint firstItem="IJx-rs-Yia" firstAttribute="top" secondItem="BWo-pL-r5D" secondAttribute="top" constant="4" id="2cy-cH-Omp"/>
+                                    <constraint firstItem="aOI-TX-AKg" firstAttribute="leading" secondItem="dLP-uK-mME" secondAttribute="trailing" constant="4" id="5lg-Fj-Z5W"/>
+                                    <constraint firstAttribute="bottom" secondItem="dLP-uK-mME" secondAttribute="bottom" constant="4" id="FLP-kG-cyC"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pj4-uN-4dm" secondAttribute="trailing" constant="4" id="FkG-r4-mNn"/>
+                                    <constraint firstAttribute="bottom" secondItem="Pj4-uN-4dm" secondAttribute="bottom" constant="4" id="Gjo-zI-dk7"/>
+                                    <constraint firstItem="aOI-TX-AKg" firstAttribute="top" secondItem="BWo-pL-r5D" secondAttribute="top" constant="4" id="IXE-dB-jBz"/>
+                                    <constraint firstAttribute="bottom" secondItem="IJx-rs-Yia" secondAttribute="bottom" constant="4" id="J0I-tm-Snb"/>
+                                    <constraint firstItem="aOI-TX-AKg" firstAttribute="width" secondItem="IJx-rs-Yia" secondAttribute="width" id="KTS-tu-bv1"/>
+                                    <constraint firstItem="Pj4-uN-4dm" firstAttribute="top" secondItem="BWo-pL-r5D" secondAttribute="top" constant="4" id="MJm-PS-gCW"/>
+                                    <constraint firstItem="dLP-uK-mME" firstAttribute="top" secondItem="BWo-pL-r5D" secondAttribute="top" constant="4" id="MYb-lX-AfD"/>
+                                    <constraint firstItem="IJx-rs-Yia" firstAttribute="leading" secondItem="aOI-TX-AKg" secondAttribute="trailing" constant="4" id="WYE-sX-lbM"/>
+                                    <constraint firstItem="Pj4-uN-4dm" firstAttribute="leading" secondItem="IJx-rs-Yia" secondAttribute="trailing" constant="4" id="XO0-UM-rWS"/>
+                                    <constraint firstItem="dLP-uK-mME" firstAttribute="width" secondItem="aOI-TX-AKg" secondAttribute="width" id="eY5-Ih-rrS"/>
+                                    <constraint firstItem="dLP-uK-mME" firstAttribute="leading" secondItem="BWo-pL-r5D" secondAttribute="leading" constant="4" id="lld-zx-Xyp"/>
                                     <constraint firstAttribute="height" constant="65" id="m27-ki-woE"/>
+                                    <constraint firstAttribute="bottom" secondItem="aOI-TX-AKg" secondAttribute="bottom" constant="4" id="paL-FQ-iSj"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IfW-ab-ngS">
@@ -151,9 +192,9 @@
                                     <constraint firstItem="Jni-q7-QfJ" firstAttribute="top" secondItem="kzO-gu-5ZQ" secondAttribute="bottom" constant="8" id="spn-fd-hOE"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rkk-zU-I32" customClass="ImageRenderView" customModule="PVModel" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rkk-zU-I32" customClass="GrapherView" customModule="PVModel" customModuleProvider="target">
                                 <rect key="frame" x="44" y="101" width="323" height="401"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddy-iJ-mQE" customClass="VerticalSlider" customModule="PVModel" customModuleProvider="target">
                                 <rect key="frame" x="8" y="101" width="28" height="401"/>
@@ -183,6 +224,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rkk-zU-I32" firstAttribute="leading" secondItem="ddy-iJ-mQE" secondAttribute="trailing" constant="8" id="3El-S4-pqx"/>
@@ -199,7 +241,6 @@
                             <constraint firstItem="ddy-iJ-mQE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="n2n-MB-fRG"/>
                             <constraint firstAttribute="trailing" secondItem="IfW-ab-ngS" secondAttribute="trailing" constant="8" id="ogF-QO-vYO"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="afterloadSlider" destination="kzO-gu-5ZQ" id="lZ2-F2-dAg"/>
@@ -214,4 +255,9 @@
             <point key="canvasLocation" x="128.80000000000001" y="27.436281859070466"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

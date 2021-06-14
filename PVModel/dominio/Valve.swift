@@ -72,6 +72,9 @@ class Valve {
     }
 }
 class UnidirectionalValve: Valve {
+    var previousValveState: Bool = false
+    var onOpenValveListener: (ValveEvent)->() = nil
+    var onCloseValveListener: (ValveEvent)->() = nil
     
     override init(resistance: Double, preCavity: Cavity, postCavity: Cavity){
         super.init(resistance: resistance, preCavity: preCavity, postCavity: postCavity)
@@ -82,6 +85,16 @@ class UnidirectionalValve: Valve {
         if (accumulateFlow > 0) {
             preCavity.addFlow(flow: -accumulateFlow)
             postCavity.addFlow(flow: accumulateFlow)
+        }
+        valveState = accumulateFlow > 0
+        if (valveState != previousValveState) {
+            this.onOpenValveListener?.invoke(ValveEvent(preCavity.pressure, preCavity.volumen,
+                    postCavity.pressure, postCavity.volumen, accumulateFlow))
+            previousValveState = valveState
+        } else {
+            this.onCloseValveListener?.invoke(ValveEvent(preCavity.pressure, preCavity.volumen,
+                    postCavity.pressure, postCavity.volumen, accumulateFlow))
+            previousValveState = valveState
         }
     }
 }

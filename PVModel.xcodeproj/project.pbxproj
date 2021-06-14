@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07EA04912675AE9B00B95E0C /* Heart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EA04902675AE9B00B95E0C /* Heart.swift */; };
+		07EA049A2676466D00B95E0C /* GraphConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EA04992676466D00B95E0C /* GraphConfig.swift */; };
+		07EA04A22676529600B95E0C /* GrapherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EA04A12676529600B95E0C /* GrapherView.swift */; };
+		07EA04A72676533100B95E0C /* GrapherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EA04A62676533100B95E0C /* GrapherData.swift */; };
 		7F5CEE1F2246FC5100E10009 /* ModelActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5CEE1E2246FC5100E10009 /* ModelActivity.swift */; };
 		7F5CEE212247D6B300E10009 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F5CEE202247D6B300E10009 /* Clock.swift */; };
 		7F9F00892269949A0004185C /* Valve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F00882269949A0004185C /* Valve.swift */; };
@@ -40,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07EA04902675AE9B00B95E0C /* Heart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heart.swift; sourceTree = "<group>"; };
+		07EA04992676466D00B95E0C /* GraphConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphConfig.swift; sourceTree = "<group>"; };
+		07EA04A12676529600B95E0C /* GrapherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrapherView.swift; sourceTree = "<group>"; };
+		07EA04A62676533100B95E0C /* GrapherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrapherData.swift; sourceTree = "<group>"; };
 		7F5CEE1E2246FC5100E10009 /* ModelActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelActivity.swift; sourceTree = "<group>"; };
 		7F5CEE202247D6B300E10009 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		7F9F00882269949A0004185C /* Valve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valve.swift; sourceTree = "<group>"; };
@@ -86,6 +94,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07EA048C2675ADC400B95E0C /* dominio */ = {
+			isa = PBXGroup;
+			children = (
+				7FF54B1F2245196E00BE467E /* Cavity.swift */,
+				7FF54B21224530F800BE467E /* Pacemaker.swift */,
+				7F5CEE202247D6B300E10009 /* Clock.swift */,
+				7F9F00882269949A0004185C /* Valve.swift */,
+				07EA04902675AE9B00B95E0C /* Heart.swift */,
+			);
+			path = dominio;
+			sourceTree = "<group>";
+		};
+		07EA04982676464600B95E0C /* grapher */ = {
+			isa = PBXGroup;
+			children = (
+				07EA04992676466D00B95E0C /* GraphConfig.swift */,
+				07EA04A12676529600B95E0C /* GrapherView.swift */,
+				07EA04A62676533100B95E0C /* GrapherData.swift */,
+			);
+			path = grapher;
+			sourceTree = "<group>";
+		};
 		7FF54AE52245183100BE467E = {
 			isa = PBXGroup;
 			children = (
@@ -109,17 +139,15 @@
 		7FF54AF02245183200BE467E /* PVModel */ = {
 			isa = PBXGroup;
 			children = (
+				07EA04982676464600B95E0C /* grapher */,
+				07EA048C2675ADC400B95E0C /* dominio */,
 				7FF54AF12245183200BE467E /* AppDelegate.swift */,
 				7FF54AF32245183200BE467E /* ViewController.swift */,
 				7FF54AF52245183200BE467E /* Main.storyboard */,
 				7FF54AF82245183400BE467E /* Assets.xcassets */,
 				7FF54AFA2245183400BE467E /* LaunchScreen.storyboard */,
 				7FF54AFD2245183400BE467E /* Info.plist */,
-				7FF54B1F2245196E00BE467E /* Cavity.swift */,
-				7FF54B21224530F800BE467E /* Pacemaker.swift */,
 				7F5CEE1E2246FC5100E10009 /* ModelActivity.swift */,
-				7F5CEE202247D6B300E10009 /* Clock.swift */,
-				7F9F00882269949A0004185C /* Valve.swift */,
 				7FC28881227BA8E300EBFB99 /* UserInterface.swift */,
 			);
 			path = PVModel;
@@ -282,8 +310,12 @@
 				7FF54B202245196E00BE467E /* Cavity.swift in Sources */,
 				7FF54AF42245183200BE467E /* ViewController.swift in Sources */,
 				7FF54AF22245183200BE467E /* AppDelegate.swift in Sources */,
+				07EA049A2676466D00B95E0C /* GraphConfig.swift in Sources */,
+				07EA04A22676529600B95E0C /* GrapherView.swift in Sources */,
+				07EA04A72676533100B95E0C /* GrapherData.swift in Sources */,
 				7F9F00892269949A0004185C /* Valve.swift in Sources */,
 				7FC28882227BA8E300EBFB99 /* UserInterface.swift in Sources */,
+				07EA04912675AE9B00B95E0C /* Heart.swift in Sources */,
 				7FF54B22224530F800BE467E /* Pacemaker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
