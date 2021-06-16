@@ -192,10 +192,6 @@
                                     <constraint firstItem="Jni-q7-QfJ" firstAttribute="top" secondItem="kzO-gu-5ZQ" secondAttribute="bottom" constant="8" id="spn-fd-hOE"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rkk-zU-I32" customClass="GrapherView" customModule="PVModel" customModuleProvider="target">
-                                <rect key="frame" x="44" y="101" width="323" height="401"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddy-iJ-mQE" customClass="VerticalSlider" customModule="PVModel" customModuleProvider="target">
                                 <rect key="frame" x="8" y="101" width="28" height="401"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -223,29 +219,33 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" restorationIdentifier="containerView" translatesAutoresizingMaskIntoConstraints="NO" id="DKJ-k0-Bl6">
+                                <rect key="frame" x="44" y="101" width="323" height="401"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="rkk-zU-I32" firstAttribute="leading" secondItem="ddy-iJ-mQE" secondAttribute="trailing" constant="8" id="3El-S4-pqx"/>
                             <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="ddy-iJ-mQE" secondAttribute="bottom" constant="8" id="6Cm-Tv-E6k"/>
                             <constraint firstItem="IfW-ab-ngS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="90f-t5-BSy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DKJ-k0-Bl6" secondAttribute="trailing" constant="8" id="EpZ-rf-Dj5"/>
+                            <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="DKJ-k0-Bl6" secondAttribute="bottom" constant="8" id="HND-Ry-PB8"/>
                             <constraint firstItem="BWo-pL-r5D" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="Hky-fF-ahf"/>
+                            <constraint firstItem="DKJ-k0-Bl6" firstAttribute="top" secondItem="BWo-pL-r5D" secondAttribute="bottom" constant="8" id="PFE-ur-e5c"/>
                             <constraint firstAttribute="trailing" secondItem="BWo-pL-r5D" secondAttribute="trailing" constant="8" id="Sdx-5n-ADF"/>
                             <constraint firstItem="BWo-pL-r5D" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="28" id="V1u-p9-ir2"/>
                             <constraint firstItem="IfW-ab-ngS" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" constant="-8" id="bis-Oj-exB"/>
-                            <constraint firstAttribute="trailing" secondItem="rkk-zU-I32" secondAttribute="trailing" constant="8" id="ccY-ls-h4n"/>
                             <constraint firstItem="ddy-iJ-mQE" firstAttribute="top" secondItem="BWo-pL-r5D" secondAttribute="bottom" constant="8" id="k06-1p-HMm"/>
-                            <constraint firstItem="rkk-zU-I32" firstAttribute="top" secondItem="BWo-pL-r5D" secondAttribute="bottom" constant="8" id="lI5-4M-aHg"/>
-                            <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="rkk-zU-I32" secondAttribute="bottom" constant="8" id="lxm-z0-2Tg"/>
                             <constraint firstItem="ddy-iJ-mQE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="n2n-MB-fRG"/>
                             <constraint firstAttribute="trailing" secondItem="IfW-ab-ngS" secondAttribute="trailing" constant="8" id="ogF-QO-vYO"/>
+                            <constraint firstItem="DKJ-k0-Bl6" firstAttribute="leading" secondItem="ddy-iJ-mQE" secondAttribute="trailing" constant="8" id="tjh-sW-OIK"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="afterloadSlider" destination="kzO-gu-5ZQ" id="lZ2-F2-dAg"/>
+                        <outlet property="containerView" destination="DKJ-k0-Bl6" id="PbZ-EV-Gi3"/>
                         <outlet property="contractSlider" destination="Lqy-7V-bVV" id="hIV-IU-KLv"/>
-                        <outlet property="imageRenderView" destination="rkk-zU-I32" id="UO2-31-v6w"/>
                         <outlet property="preloadSlider" destination="hYM-sb-BS6" id="aay-WH-JV4"/>
                         <outlet property="velSlider" destination="ddy-iJ-mQE" id="vHS-r4-BRi"/>
                     </connections>
@@ -258,6 +258,9 @@
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

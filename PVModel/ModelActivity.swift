@@ -12,10 +12,22 @@ import UIKit
 
 class ModelViewController : UIViewController {
     let lapseOfTime: Int = 10
-    var clock = Clock(initialTime: 0)
+    var clock: Clock
     var heart: Heart
     
-    @IBOutlet weak var imageRenderView: GrapherView!
+    let loopData: LoopPVGrapherData
+    let volumenData: VolumenEnTiempoGrapherData
+    let pressureData: PresionEnTiempoGrapherData
+    let contractilityData: TensionGrapherData
+    
+    var loopPVGapherVC: GrapherViewController?
+    var volumeTempoVC: GrapherViewController?
+    var pressureTempoVC: GrapherViewController?
+    var contractilityVC: GrapherViewController?
+    var activedGrapherVC: GrapherViewController?
+    
+    
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var velSlider: VerticalSlider!
     @IBOutlet weak var preloadSlider: HorizontalSlider!
     @IBOutlet weak var afterloadSlider: HorizontalSlider!
@@ -26,22 +38,53 @@ class ModelViewController : UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         clock = Clock()
-        heart = Heart(clock: self.clock)
-        super.init(nibName:nibNameOrNil, bundle:nibBundleOrNil)
+        heart = Heart(clock: clock)
+        
+        loopData = LoopPVGrapherData(source: heart)
+        volumenData = VolumenEnTiempoGrapherData(source: heart)
+        pressureData = PresionEnTiempoGrapherData(source: heart)
+        contractilityData = TensionGrapherData(source: heart)
+        
         semaphore = DispatchSemaphore(value: 1)
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         clock = Clock()
         heart = Heart(clock: clock)
-        super.init(coder: aDecoder)
+        
+        loopData = LoopPVGrapherData(source: heart)
+        volumenData = VolumenEnTiempoGrapherData(source: heart)
+        pressureData = PresionEnTiempoGrapherData(source: heart)
+        contractilityData = TensionGrapherData(source: heart)
+        
         semaphore = DispatchSemaphore(value: 1)
+        super.init(coder: aDecoder)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        imageRenderView.setCavity(cavity:leftVentricle)
-        imageRenderView.createSubLayers()
-        imageRenderView.setParent(parent:self)
+        
+        loopPVGapherVC = LoopPVGrapherView(data: loopData)
+        volumeTempoVC = VolumenEnTiempoGrapherView(data: volumenData)
+        pressureTempoVC = PresionEnTiempoGrapherView(data: pressureData)
+        contractilityVC = TensionGrapherView(data: contractilityData)
+        
+        addChild(loopPVGapherVC!)
+        addChild(volumeTempoVC!)
+        addChild(pressureTempoVC!)
+        addChild(contractilityVC!)
+        
+        loopPVGapherVC!.view.frame = containerView.frame
+        volumeTempoVC!.view.frame = containerView.frame
+        pressureTempoVC!.view.frame = containerView.frame
+        contractilityVC!.view.frame = containerView.frame
+        view.addSubview(loopPVGapherVC!.view)
+        loopPVGapherVC?.didMove(toParent: self)
+                
+        activedGrapherVC = loopPVGapherVC
+        
+        //imageRenderView.createSubLayers()
+        //imageRenderView.setParent(parent:self)
         
         velSlider.addTarget(self, action: #selector(velocityChanged), for: UIControl.Event.valueChanged)
         preloadSlider.addTarget(self, action: #selector(preloadChanged), for: UIControl.Event.valueChanged)
@@ -50,15 +93,12 @@ class ModelViewController : UIViewController {
         timerThread = Timer.scheduledTimer(timeInterval: TimeInterval(lapseOfTime / 1000), target: self, selector: #selector(mainRefresh), userInfo: nil,  repeats: true)
     }
     @objc func mainRefresh(timer: Timer) {
-        try? heart.calculateAdvance(lapseOfTime: lapseOfTime)
-        
-        clock.advance(lapse: lapseOfTime)
-        
         self.semaphore!.wait()
-        self.imageRenderView.updateValue()
+        try? heart.calculateAdvance(lapseOfTime: lapseOfTime)
+        clock.advance(lapse: lapseOfTime)
         self.semaphore!.signal()
         
-        self.imageRenderView.setNeedsDisplay()
+        //self.imageRenderView.setNeedsDisplay()
     }
 
     @objc func velocityChanged(control: VerticalSlider, withEvent event: UIEvent) {

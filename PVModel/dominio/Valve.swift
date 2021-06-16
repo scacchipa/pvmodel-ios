@@ -1,12 +1,19 @@
-//
-//  Valve.swift
-//  PVModel
-//
-//  Created by Pablo Antonio Scacchi Bernasconi on 19/04/2019.
-//  Copyright © 2019 Pablo Antonio Scacchi Bernasconi. All rights reserved.
-//
-
 import Foundation
+
+struct ValveEvent{
+    let preCavityPressure: Double
+    let preCavityVolume: Double
+    let posCavityPressure: Double
+    let posCavityVolume: Double
+    let flow: Double
+    init (preCavityPressure: Double, preCavityVolume: Double, posCavityPressure: Double, posCavityVolume: Double, flow: Double) {
+        self.preCavityPressure = preCavityPressure
+        self.preCavityVolume = preCavityVolume
+        self.posCavityPressure = posCavityPressure
+        self.posCavityVolume = posCavityVolume
+        self.flow = flow
+    }
+}
 
 class Valve {
     public var resistance: Double// (mmHg/mseg/ml)
@@ -73,8 +80,8 @@ class Valve {
 }
 class UnidirectionalValve: Valve {
     var previousValveState: Bool = false
-    var onOpenValveListener: (ValveEvent)->() = nil
-    var onCloseValveListener: (ValveEvent)->() = nil
+    var onOpenValveListener: ((ValveEvent)->())? = nil
+    var onCloseValveListener: ((ValveEvent)->())? = nil
     
     override init(resistance: Double, preCavity: Cavity, postCavity: Cavity){
         super.init(resistance: resistance, preCavity: preCavity, postCavity: postCavity)
@@ -86,14 +93,12 @@ class UnidirectionalValve: Valve {
             preCavity.addFlow(flow: -accumulateFlow)
             postCavity.addFlow(flow: accumulateFlow)
         }
-        valveState = accumulateFlow > 0
+        let valveState = accumulateFlow > 0
         if (valveState != previousValveState) {
-            this.onOpenValveListener?.invoke(ValveEvent(preCavity.pressure, preCavity.volumen,
-                    postCavity.pressure, postCavity.volumen, accumulateFlow))
+            self.onOpenValveListener?(ValveEvent(preCavityPressure: preCavity.pressure, preCavityVolume: preCavity.volumen, posCavityPressure: postCavity.pressure, posCavityVolume: postCavity.volumen, flow: accumulateFlow))
             previousValveState = valveState
         } else {
-            this.onCloseValveListener?.invoke(ValveEvent(preCavity.pressure, preCavity.volumen,
-                    postCavity.pressure, postCavity.volumen, accumulateFlow))
+            self.onCloseValveListener?(ValveEvent(preCavityPressure: preCavity.pressure, preCavityVolume: preCavity.volumen, posCavityPressure: postCavity.pressure, posCavityVolume: postCavity.volumen, flow: accumulateFlow))
             previousValveState = valveState
         }
     }

@@ -12,7 +12,7 @@ struct GraphConfig {
     init(abscissaTitle: String, abscissaMagnitude: String, ordenateTitle: String, ordenateMagnitude: String, curveConfigs: [CurveConfig]) {
         self.abscissaTitle = abscissaTitle
         self.abscissaMagnitude = abscissaMagnitude
-        self.ordenateTitle = ordenateMagnitude
+        self.ordenateTitle = ordenateTitle
         self.ordenateMagnitude = ordenateMagnitude
         self.curveConfigs = curveConfigs
     }

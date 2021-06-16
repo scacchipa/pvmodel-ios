@@ -6,8 +6,8 @@ public class GrapherData {
     var limitRect: CGRect
     var xShift:CGFloat = 0
     var pointVector: [[CGPoint]] = []
-    var _grapherView: GrapherView?
-    var grapherView: GrapherView?{
+    var _grapherView: GrapherViewController?
+    var grapherView: GrapherViewController?{
         get {
             return self.grapherView
         }
@@ -15,7 +15,7 @@ public class GrapherData {
             if (value?.graphConfig == nil) {
                 self.pointVector = []
             } else {
-                self.pointVector = [ [CGPoint] ](repeating:[CGPoint](), count:(grapherView?.graphConfig.curveCount())! )
+                self.pointVector = [ [CGPoint] ](repeating:[CGPoint](), count:(grapherView!.graphConfig!.curveCount()) )
                 self._grapherView = grapherView
             }
         }
@@ -26,9 +26,9 @@ public class GrapherData {
     }
     func updateValue() {
         if (grapherView != nil) {
-            let points:[[CGPoint]] = (grapherView?.graphConfig.curveConfigs.map {
+            let points:[[CGPoint]] = (grapherView!.graphConfig!.curveConfigs.map {
                 $0.addingFunction(self.source)
-            })!
+            })
             self.addValues(points:points)
         }
     }
@@ -84,9 +84,9 @@ class TensionGrapherData: GrapherData {
     override func updateValue() {
         if (grapherView != nil) {
             clear()
-            let points: [[CGPoint]] = (grapherView?.graphConfig.curveConfigs.map {
+            let points: [[CGPoint]] = (grapherView!.graphConfig!.curveConfigs.map {
                     $0.addingFunction(self.source)
-                })!
+                })
             addValues(points:points)
         }
     }
@@ -95,18 +95,18 @@ class TensionGrapherData: GrapherData {
 }
 
 class PresionEnTiempoGrapherData: FadeXYGrapherData{
-    override init(source: Heart, limitRect: CGRect) {
+    init(source: Heart) {
         super.init(source: source, limitRect: CGRect(x: 0, y: 170, width: 3000, height: -10))
     }
 }
 
 class VolumenEnTiempoGrapherData: FadeXYGrapherData {
-    override init(source: Heart, limitRect: CGRect) {
+    init(source: Heart) {
         super.init(source: source, limitRect: CGRect(x: 0, y: 170, width: 3000, height: -10))
     }
 }
 class LoopPVGrapherData: GrapherData{
-    override init(source: Heart, limitRect: CGRect) {
+    init(source: Heart) {
         super.init(source: source, limitRect: CGRect(x: 0, y: 150, width: 200, height: 0))
     }
 }
