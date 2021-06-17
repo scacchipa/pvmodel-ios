@@ -34,8 +34,8 @@ public class GraphData {
         }
     }
     func clear() {
-        for var points in pointVector {
-            points.removeAll()
+        for idx in 0..<pointVector.count{
+            pointVector[idx].removeAll()
         }
     }
 
@@ -70,7 +70,7 @@ class TensionGrapherData: GraphData {
     init(source: Heart) {
         super.init(
             source: source,
-            limitRect: CGRect(x: 0, y: 200, width: 200, height: -50),
+            limitRect: CGRect(x: 0, y: -50, width: 200, height: 160),
             graphConfig: GraphConfig(
                 abscissaTitle: "Volume",
                 abscissaMagnitude: "mL",
@@ -80,15 +80,32 @@ class TensionGrapherData: GraphData {
                    CurveConfig(
                        curveTitle: "VMax-LV",
                        color: UIColor.blue.cgColor,
-                       addingFunction: { heart in return (Int(0)..<Int(10)).map { return CGPoint(
-                           x: CGFloat($0 * 20),
-                           y: CGFloat(heart.leftVentricle.getIntrinsicPressure(volumen: Double($0 * 20)))) } } ),
+                       addingFunction: { heart in return (Int(0)..<Int(10)).map {
+                        let x = CGFloat($0 * 20)
+                        var y = CGFloat(heart.leftVentricle.getIntrinsicPressure(volumen: Double($0 * 20)))
+                        if y.isInfinite {
+                            if (y.sign == .plus) {
+                                y = 400
+                            } else {
+                                y = -400
+                            }
+                        }
+                        return CGPoint(x: x,y: y) } }),
                    CurveConfig(
                        curveTitle: "VMax-LA",
                        color: UIColor.red.cgColor,
-                       addingFunction: { heart in return (Int(0)..<Int(10)).map { CGPoint(
-                           x: CGFloat($0 * 20),
-                           y: CGFloat(heart.leftAtrium.getIntrinsicPressure(volumen:Double($0 * 20)))) } } ) ]))
+                       addingFunction: { heart in return (Int(0)..<Int(10)).map {
+                        let x = CGFloat($0 * 20)
+                        var y = CGFloat(heart.leftAtrium.getIntrinsicPressure(volumen: Double($0 * 20)))
+                        if y.isInfinite {
+                            if (y.sign == .plus) {
+                                y = 400
+                            } else {
+                                y = -400
+                            }
+                        }
+                        return CGPoint(x: x,y: y) } } )
+                ]))
     }
         
     override func updateValue() {
@@ -106,7 +123,7 @@ class PresionEnTiempoGrapherData: FadeXYGrapherData {
     init(source: Heart) {
         super.init(
             source: source,
-            limitRect: CGRect(x: 0, y: 170, width: 3000, height: -10),
+            limitRect: CGRect(x: 0, y: -10, width: 3000, height: 180),
             graphConfig: GraphConfig(
                 abscissaTitle: "Time",
                 abscissaMagnitude: "s",
@@ -140,7 +157,7 @@ class VolumenEnTiempoGrapherData: FadeXYGrapherData {
     init(source: Heart) {
         super.init(
             source: source,
-            limitRect: CGRect(x: 0, y: -10, width: 3000, height: 170),
+            limitRect: CGRect(x: 0, y: -10, width: 3000, height: 180),
             graphConfig: GraphConfig(
                 abscissaTitle: "Time",
                 abscissaMagnitude: "s",
