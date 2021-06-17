@@ -55,7 +55,7 @@ class ModelViewController : UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        grapherVC = GrapherViewController(grapherData: volumenData)
+        grapherVC = GrapherViewController(grapherData: loopData)
         addChild(grapherVC!)
         
         grapherVC!.view.frame = containerView.frame

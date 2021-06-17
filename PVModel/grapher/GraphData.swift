@@ -165,7 +165,7 @@ class LoopPVGrapherData: GraphData{
     init(source: Heart) {
         super.init(
             source: source,
-            limitRect: CGRect(x: 0, y: 150, width: 200, height: 0),
+            limitRect: CGRect(x: 0, y: 0, width: 200, height: 160),
             graphConfig: GraphConfig(
                 abscissaTitle:"Volume",
                 abscissaMagnitude:"mL",
