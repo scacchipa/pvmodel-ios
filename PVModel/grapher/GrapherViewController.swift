@@ -2,55 +2,26 @@ import Foundation
 import UIKit
 
 class GrapherViewController: UIViewController   {
-    var graphConfig: GraphConfig!
-    var grapherData: GrapherData!
+    var grapherData: GraphData!
     
-    //private var parent:ModelViewController?
-    init(graphConfig: GraphConfig, grapherData: GrapherData) {
-        self.graphConfig = graphConfig
+    init(grapherData: GraphData) {
         self.grapherData = grapherData
 
         super.init(nibName: nil, bundle: nil)
     }
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.view.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(SubLayerView(frame: self.view.bounds, graphConfig: graphConfig, grapherData: grapherData))
+        self.view = SubLayerView(frame: self.view.bounds, grapherData: grapherData)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//    override func draw(_ rect: CGRect) {
-//        self.updatePictureLayer()
-//        super.draw(rect)
-//    }
-    
-
-
 }
 
 class LoopPVGrapherView: GrapherViewController {
-    init(data: GrapherData) {
-        super.init(
-            graphConfig: GraphConfig(
-                abscissaTitle:"Volume",
-                abscissaMagnitude:"mL",
-                ordenateTitle:"Pressure",
-                ordenateMagnitude:"mmHg",
-                curveConfigs: [
-                    CurveConfig(
-                        curveTitle:"LV",
-                        color: UIColor.blue.cgColor,
-                        addingFunction: { heart in return [CGPoint(
-                            x: heart.leftVentricle.volumen,
-                            y: heart.leftVentricle.pressure)] }),
-                    CurveConfig(
-                        curveTitle:"LA",
-                        color: UIColor.red.cgColor,
-                        addingFunction: { heart in return [CGPoint(
-                            x: heart.leftAtrium.volumen,
-                            y: heart.leftAtrium.pressure)] })
-                ]),
-            grapherData: data)
+    init(data: GraphData) {
+        super.init(grapherData: data)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,43 +30,16 @@ class LoopPVGrapherView: GrapherViewController {
 }
 
 class FadeXYGrapherView: GrapherViewController {
-    override init(graphConfig: GraphConfig, grapherData: GrapherData) {
-        super.init(graphConfig: graphConfig, grapherData: grapherData)
+    override init(grapherData: GraphData) {
+        super.init(grapherData: grapherData)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 class PresionEnTiempoGrapherView: FadeXYGrapherView {
-    init(data: GrapherData) {
-        super.init(
-            graphConfig: GraphConfig(
-                abscissaTitle: "Time",
-                abscissaMagnitude: "s",
-                ordenateTitle: "Pressure",
-                ordenateMagnitude: "mmHg",
-                curveConfigs:[
-                    CurveConfig(
-                        curveTitle: "LV",
-                        color: UIColor.blue.cgColor,
-                        addingFunction: { heart in return [CGPoint(
-                            x: CGFloat(heart.clock.time),
-                            y: CGFloat(heart.leftVentricle.pressure))] }),
-                    CurveConfig(
-                        curveTitle: "Ao",
-                        color: UIColor.gray.cgColor,
-                        addingFunction: { heart in return [CGPoint(
-                            x: CGFloat(heart.clock.time),
-                            y: CGFloat(heart.aorta.pressure))] }),
-                    CurveConfig(
-                        curveTitle: "LA",
-                        color: UIColor.red.cgColor,
-                        addingFunction:{ heart in return [CGPoint(
-                            x: CGFloat(heart.clock.time),
-                            y: CGFloat(heart.leftAtrium.pressure))] } )
-                ]),
-                grapherData: data)
-        
+    init(data: GraphData) {
+        super.init(grapherData: data)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -103,62 +47,21 @@ class PresionEnTiempoGrapherView: FadeXYGrapherView {
 }
 
 class VolumenEnTiempoGrapherView: FadeXYGrapherView {
-    init (data: GrapherData) {
-        super.init(
-            graphConfig: GraphConfig(
-                abscissaTitle: "Time",
-                abscissaMagnitude: "s",
-                ordenateTitle: "Volume",
-                ordenateMagnitude: "mL",
-                curveConfigs: [
-                    CurveConfig(
-                        curveTitle: "LV",
-                        color: UIColor.blue.cgColor,
-                        addingFunction: { heart in return [CGPoint(
-                            x: CGFloat(heart.clock.time),
-                            y: CGFloat(heart.leftVentricle.volumen))] }),
-                    CurveConfig(
-                        curveTitle: "LA",
-                        color: UIColor.red.cgColor,
-                        addingFunction: { heart in return [CGPoint(
-                            x: CGFloat(heart.clock.time),
-                            y: CGFloat(heart.leftAtrium.volumen))] } ) ]),
-            grapherData: data)
+    init (data: GraphData) {
+        super.init(grapherData: data)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
 class TensionGrapherView: GrapherViewController {
-    init(data: GrapherData) {
-        super.init(
-            graphConfig: GraphConfig(
-                abscissaTitle: "Volume",
-                abscissaMagnitude: "mL",
-                ordenateTitle: "Pressure",
-                ordenateMagnitude: "mmHg",
-                curveConfigs: [
-                    CurveConfig(
-                        curveTitle: "VMax-LV",
-                        color: UIColor.blue.cgColor,
-                        addingFunction: { heart in return (Int(0)..<Int(10)).map { return CGPoint(
-                            x: CGFloat($0 * 20),
-                            y: CGFloat(heart.leftVentricle.getIntrinsicPressure(volumen: Double($0 * 20)))) } } ),
-                    CurveConfig(
-                        curveTitle: "VMax-LA",
-                        color: UIColor.red.cgColor,
-                        addingFunction: { heart in return (Int(0)..<Int(10)).map { CGPoint(
-                            x: CGFloat($0 * 20),
-                            y: CGFloat(heart.leftAtrium.getIntrinsicPressure(volumen:Double($0 * 20)))) } } ) ]),
-            grapherData: data)
+    init(data: GraphData) {
+        super.init(grapherData: data)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-
 
 class SubLayerView: UIView {
     let textSize:CGFloat = 16
@@ -183,13 +86,11 @@ class SubLayerView: UIView {
     
     var canvasRect: CGRect = CGRect.zero
     
-    let graphConfig: GraphConfig!
-    let grapherData: GrapherData!
+    let graphData: GraphData!
     
     
-    init(frame: CGRect, graphConfig: GraphConfig, grapherData: GrapherData) {
-        self.graphConfig = graphConfig
-        self.grapherData = grapherData
+    init(frame: CGRect, grapherData: GraphData) {
+        self.graphData = grapherData
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.yellow
@@ -200,6 +101,12 @@ class SubLayerView: UIView {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+//        createSubLayers()
+        updatePictureLayer()
     }
     
     func createSubLayers() {
@@ -223,14 +130,14 @@ class SubLayerView: UIView {
     }
     func createAbsTitleLayer() -> CALayer! {
         let layer = CATextLayer()
-        layer.string = NSMutableAttributedString(string: graphConfig.abscissaTitle + "(" + graphConfig.abscissaMagnitude + ")", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: self.textSize)])
+        layer.string = NSMutableAttributedString(string: graphData.graphConfig.abscissaTitle + "(" + graphData.graphConfig.abscissaMagnitude + ")", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: self.textSize)])
         let absFrameSize = layer.preferredFrameSize()
         layer.frame = CGRect(x: bounds.midX - absFrameSize.width / 2, y: secondRowY - absFrameSize.height / 2, width:absFrameSize.width, height:absFrameSize.height)
         return layer
     }
     func createOrdTitleLayer() -> CALayer! {
         let layer = CATextLayer()
-        layer.string = NSMutableAttributedString(string: graphConfig.ordenateTitle  + "("+graphConfig.ordenateMagnitude+")", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: self.textSize)])
+        layer.string = NSMutableAttributedString(string: graphData.graphConfig.ordenateTitle  + "("+graphData.graphConfig.ordenateMagnitude+")", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: self.textSize)])
         let ordFrameSize = layer.preferredFrameSize()
         layer.frame = CGRect(x:secondColumnX - ordFrameSize.width / 2, y:bounds.midY - ordFrameSize.height / 2, width:ordFrameSize.width, height:ordFrameSize.height)
         layer.alignmentMode = CATextLayerAlignmentMode.center
@@ -278,9 +185,8 @@ class SubLayerView: UIView {
     func updatePictureLayer() {
         let picturePath = UIBezierPath()
 
-        //parent?.semaphore?.wait()
-
-        for pointList in self.grapherData.pointVector {
+        self.graphData.semaphore.wait()
+        for pointList in self.graphData.pointVector {
             if pointList.count > 0 {
                 picturePath.move(to: pointList.first!)
                 for point in pointList {
@@ -288,8 +194,7 @@ class SubLayerView: UIView {
                 }
             }
         }
-
-        //parent?.semaphore?.signal()
+        self.graphData.semaphore.signal()
 
         picturePath.apply(CGAffineTransform(scaleX: 1.0, y: -1.0))
         picturePath.apply(CGAffineTransform(translationX: 0, y: canvasRect.size.height))

@@ -15,7 +15,7 @@ struct HeartEvent {
 class Heart {
     
     var clock: Clock
-    var observer: [ GrapherData ] = []
+    var observer: [ GraphData ] = []
     var pacemaker: Pacemaker
 
     var leftAtrium: AtriumCavity
@@ -42,7 +42,11 @@ class Heart {
         for cavity in cavities {cavity.calculateVolumen() }
 
         //onHeartChangedListener?.invoke(heartEvent)
-        observer.forEach {grapherData in grapherData.updateValue()  }
+        observer.forEach {grapherData in
+            grapherData.semaphore.wait()
+            grapherData.updateValue()
+            grapherData.semaphore.signal()
+        }
     }
 
     init(clock: Clock){

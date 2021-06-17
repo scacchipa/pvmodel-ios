@@ -26,7 +26,6 @@ class ModelViewController : UIViewController {
     var contractilityVC: GrapherViewController?
     var activedGrapherVC: GrapherViewController?
     
-    
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var velSlider: VerticalSlider!
     @IBOutlet weak var preloadSlider: HorizontalSlider!
@@ -34,7 +33,6 @@ class ModelViewController : UIViewController {
     @IBOutlet weak var contractSlider: HorizontalSlider!
     
     var timerThread: Timer? = nil
-    var semaphore: DispatchSemaphore? = nil
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         clock = Clock()
@@ -45,7 +43,6 @@ class ModelViewController : UIViewController {
         pressureData = PresionEnTiempoGrapherData(source: heart)
         contractilityData = TensionGrapherData(source: heart)
         
-        semaphore = DispatchSemaphore(value: 1)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -58,7 +55,6 @@ class ModelViewController : UIViewController {
         pressureData = PresionEnTiempoGrapherData(source: heart)
         contractilityData = TensionGrapherData(source: heart)
         
-        semaphore = DispatchSemaphore(value: 1)
         super.init(coder: aDecoder)
     }
     
@@ -83,9 +79,6 @@ class ModelViewController : UIViewController {
                 
         activedGrapherVC = loopPVGapherVC
         
-        //imageRenderView.createSubLayers()
-        //imageRenderView.setParent(parent:self)
-        
         velSlider.addTarget(self, action: #selector(velocityChanged), for: UIControl.Event.valueChanged)
         preloadSlider.addTarget(self, action: #selector(preloadChanged), for: UIControl.Event.valueChanged)
         afterloadSlider.addTarget(self, action: #selector(afterloadChanged), for: UIControl.Event.valueChanged)
@@ -93,12 +86,19 @@ class ModelViewController : UIViewController {
         timerThread = Timer.scheduledTimer(timeInterval: TimeInterval(lapseOfTime / 1000), target: self, selector: #selector(mainRefresh), userInfo: nil,  repeats: true)
     }
     @objc func mainRefresh(timer: Timer) {
-        self.semaphore!.wait()
         try? heart.calculateAdvance(lapseOfTime: lapseOfTime)
         clock.advance(lapse: lapseOfTime)
-        self.semaphore!.signal()
         
-        //self.imageRenderView.setNeedsDisplay()
+        loopData.updateValue()
+        volumenData.updateValue()
+        pressureData.updateValue()
+        contractilityData.updateValue()
+        
+        DispatchQueue.main.async { [weak self] in
+            if ((self?.activedGrapherVC?.isViewLoaded) != nil) {
+                self?.activedGrapherVC?.view?.setNeedsDisplay()
+            }
+        }
     }
 
     @objc func velocityChanged(control: VerticalSlider, withEvent event: UIEvent) {
