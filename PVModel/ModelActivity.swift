@@ -20,11 +20,7 @@ class ModelViewController : UIViewController {
     let pressureData: PresionEnTiempoGrapherData
     let contractilityData: TensionGrapherData
     
-    var loopPVGapherVC: GrapherViewController?
-    var volumeTempoVC: GrapherViewController?
-    var pressureTempoVC: GrapherViewController?
-    var contractilityVC: GrapherViewController?
-    var activedGrapherVC: GrapherViewController?
+    var grapherVC: GrapherViewController?
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var velSlider: VerticalSlider!
@@ -59,25 +55,12 @@ class ModelViewController : UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        grapherVC = GrapherViewController(grapherData: volumenData)
+        addChild(grapherVC!)
         
-        loopPVGapherVC = LoopPVGrapherView(data: loopData)
-        volumeTempoVC = VolumenEnTiempoGrapherView(data: volumenData)
-        pressureTempoVC = PresionEnTiempoGrapherView(data: pressureData)
-        contractilityVC = TensionGrapherView(data: contractilityData)
-        
-        addChild(loopPVGapherVC!)
-        addChild(volumeTempoVC!)
-        addChild(pressureTempoVC!)
-        addChild(contractilityVC!)
-        
-        loopPVGapherVC!.view.frame = containerView.frame
-        volumeTempoVC!.view.frame = containerView.frame
-        pressureTempoVC!.view.frame = containerView.frame
-        contractilityVC!.view.frame = containerView.frame
-        view.addSubview(loopPVGapherVC!.view)
-        loopPVGapherVC?.didMove(toParent: self)
-                
-        activedGrapherVC = loopPVGapherVC
+        grapherVC!.view.frame = containerView.frame
+        view.addSubview(grapherVC!.view)
+        grapherVC?.didMove(toParent: self)
         
         velSlider.addTarget(self, action: #selector(velocityChanged), for: UIControl.Event.valueChanged)
         preloadSlider.addTarget(self, action: #selector(preloadChanged), for: UIControl.Event.valueChanged)
@@ -95,8 +78,8 @@ class ModelViewController : UIViewController {
         contractilityData.updateValue()
         
         DispatchQueue.main.async { [weak self] in
-            if ((self?.activedGrapherVC?.isViewLoaded) != nil) {
-                self?.activedGrapherVC?.view?.setNeedsDisplay()
+            if ((self?.grapherVC?.isViewLoaded) != nil) {
+                self?.grapherVC?.view?.setNeedsDisplay()
             }
         }
     }

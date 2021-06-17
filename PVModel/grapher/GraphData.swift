@@ -4,7 +4,6 @@ import UIKit
 public class GraphData {
     var source: Heart
     var limitRect: CGRect
-    var xShift:CGFloat = 0
     var pointVector: [[CGPoint]] = []
     var semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
     var graphConfig: GraphConfig
@@ -56,13 +55,12 @@ class FadeXYGrapherData: GraphData {
     override func shiftOnset() {
         if (pointVector.count > 0) {
             if (pointVector.first!.count > 0) {
-                let tempXShift = max(xShift, pointVector.last!.last!.x - limitRect.maxX)
-                for var points in pointVector {
-                    if (points.first!.x < CGFloat(xShift) - limitRect.maxX) {
-                        points.remove(at:0)
+                limitRect.origin.x = max(limitRect.minX, pointVector.last!.last!.x - limitRect.maxX)
+                for idx in 0..<pointVector.count {
+                    if (pointVector[idx].first!.x < limitRect.origin.x) {
+                        pointVector[idx].remove(at:0)
                     }
                 }
-                xShift = tempXShift
             }
         }
     }
@@ -142,7 +140,7 @@ class VolumenEnTiempoGrapherData: FadeXYGrapherData {
     init(source: Heart) {
         super.init(
             source: source,
-            limitRect: CGRect(x: 0, y: 170, width: 3000, height: -10),
+            limitRect: CGRect(x: 0, y: -10, width: 3000, height: 170),
             graphConfig: GraphConfig(
                 abscissaTitle: "Time",
                 abscissaMagnitude: "s",

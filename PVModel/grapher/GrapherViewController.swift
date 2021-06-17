@@ -19,50 +19,6 @@ class GrapherViewController: UIViewController   {
     }
 }
 
-class LoopPVGrapherView: GrapherViewController {
-    init(data: GraphData) {
-        super.init(grapherData: data)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class FadeXYGrapherView: GrapherViewController {
-    override init(grapherData: GraphData) {
-        super.init(grapherData: grapherData)
-    }
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-class PresionEnTiempoGrapherView: FadeXYGrapherView {
-    init(data: GraphData) {
-        super.init(grapherData: data)
-    }
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class VolumenEnTiempoGrapherView: FadeXYGrapherView {
-    init (data: GraphData) {
-        super.init(grapherData: data)
-    }
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-class TensionGrapherView: GrapherViewController {
-    init(data: GraphData) {
-        super.init(grapherData: data)
-    }
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 class SubLayerView: UIView {
     let textSize:CGFloat = 16
     let leftMargin:CGFloat = 90
@@ -195,9 +151,10 @@ class SubLayerView: UIView {
             }
         }
         self.graphData.semaphore.signal()
-
+        
         picturePath.apply(CGAffineTransform(scaleX: 1.0, y: -1.0))
-        picturePath.apply(CGAffineTransform(translationX: 0, y: canvasRect.size.height))
+        picturePath.apply(CGAffineTransform(translationX: -graphData.limitRect.origin.x, y: graphData.limitRect.maxY))
+        picturePath.apply(CGAffineTransform(scaleX: canvasRect.width / graphData.limitRect.width, y: canvasRect.height / graphData.limitRect.height))
         pictureLayer.fillColor = UIColor.clear.cgColor
         pictureLayer.strokeColor = UIColor.blue.cgColor
         pictureLayer.frame = canvasRect
