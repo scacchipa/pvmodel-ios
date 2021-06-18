@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		079209C2267BE32F0035C516 /* TabSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079209C1267BE32F0035C516 /* TabSelectorView.swift */; };
 		07EA04912675AE9B00B95E0C /* Heart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EA04902675AE9B00B95E0C /* Heart.swift */; };
 		07EA049A2676466D00B95E0C /* GraphConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EA04992676466D00B95E0C /* GraphConfig.swift */; };
 		07EA04A22676529600B95E0C /* GrapherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EA04A12676529600B95E0C /* GrapherViewController.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		079209C1267BE32F0035C516 /* TabSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSelectorView.swift; sourceTree = "<group>"; };
 		07EA04902675AE9B00B95E0C /* Heart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heart.swift; sourceTree = "<group>"; };
 		07EA04992676466D00B95E0C /* GraphConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphConfig.swift; sourceTree = "<group>"; };
 		07EA04A12676529600B95E0C /* GrapherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrapherViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		079209C0267BE3050035C516 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				079209C1267BE32F0035C516 /* TabSelectorView.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
 		07EA048C2675ADC400B95E0C /* dominio */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +149,7 @@
 		7FF54AF02245183200BE467E /* PVModel */ = {
 			isa = PBXGroup;
 			children = (
+				079209C0267BE3050035C516 /* ui */,
 				07EA04982676464600B95E0C /* grapher */,
 				07EA048C2675ADC400B95E0C /* dominio */,
 				7FF54AF12245183200BE467E /* AppDelegate.swift */,
@@ -306,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F5CEE212247D6B300E10009 /* Clock.swift in Sources */,
+				079209C2267BE32F0035C516 /* TabSelectorView.swift in Sources */,
 				7F5CEE1F2246FC5100E10009 /* ModelActivity.swift in Sources */,
 				7FF54B202245196E00BE467E /* Cavity.swift in Sources */,
 				7FF54AF42245183200BE467E /* ViewController.swift in Sources */,

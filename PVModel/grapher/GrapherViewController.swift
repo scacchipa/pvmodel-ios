@@ -17,6 +17,11 @@ class GrapherViewController: UIViewController   {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func changeGrapherData(_ data: GraphData) {
+        self.grapherData = data
+        self.view = SubLayerView(frame: self.view.bounds, grapherData: grapherData)
+    }
 }
 
 class SubLayerView: UIView {
@@ -61,10 +66,8 @@ class SubLayerView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-//        createSubLayers()
         updatePictureLayer()
     }
-    
     func createSubLayers() {
         
         firstColumnX = leftMargin * 0.75

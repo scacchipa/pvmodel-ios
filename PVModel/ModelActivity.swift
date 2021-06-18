@@ -21,7 +21,33 @@ class ModelViewController : UIViewController {
     let contractilityData: TensionGrapherData
     
     var grapherVC: GrapherViewController?
+    var buttonArray: [UIButton] = []
     
+    @IBOutlet weak var pvButton: UIButton!
+    @IBOutlet weak var vtButton: UIButton!
+    @IBOutlet weak var ptButton: UIButton!
+    @IBOutlet weak var contrButton: UIButton!
+    
+    @IBAction func buttonTouchUpInside(_ sender: UIButton) {
+        toSelectOnlyAButton(sender)
+        switch sender {
+        case pvButton:
+            grapherVC?.changeGrapherData(loopData)
+            break
+        case vtButton:
+            grapherVC?.changeGrapherData(volumenData)
+            break
+        case ptButton:
+            grapherVC?.changeGrapherData(pressureData)
+            break
+        case contrButton:
+            grapherVC?.changeGrapherData(contractilityData)
+            break
+        default: break
+            
+        }
+    }
+
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var velSlider: VerticalSlider!
     @IBOutlet weak var preloadSlider: HorizontalSlider!
@@ -53,6 +79,16 @@ class ModelViewController : UIViewController {
         
         super.init(coder: aDecoder)
     }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        buttonArray = [pvButton, vtButton, ptButton, contrButton]
+        
+        forAllButtons(
+            selectedButton: pvButton,
+            trueScript: { button in button.isSelected = true },
+            falseScript: { button in button.isSelected = false })
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         grapherVC = GrapherViewController(grapherData: loopData)
@@ -81,6 +117,24 @@ class ModelViewController : UIViewController {
             if ((self?.grapherVC?.isViewLoaded) != nil) {
                 self?.grapherVC?.view?.setNeedsDisplay()
             }
+        }
+    }
+    private func forAllButtons(selectedButton: UIButton, trueScript: (UIButton)->(), falseScript: (UIButton)->()) {
+        for idx in 0..<buttonArray.count {
+            let button = buttonArray[idx]
+            if (button == selectedButton) {
+                trueScript(button)
+            } else {
+                falseScript(button)
+            }
+        }
+    }
+    private func toSelectOnlyAButton(_ selButton: UIButton) {
+        if !selButton.isSelected {
+            forAllButtons(
+                selectedButton: selButton,
+                trueScript: { button in button.isSelected = true },
+                falseScript: { button in button.isSelected = false})
         }
     }
 
