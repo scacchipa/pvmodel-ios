@@ -34,6 +34,8 @@ class SubLayerView: UIView {
     let verticalDivisorCount = 5
     let horizontalDivisorCount = 15
     
+    var xScale: CGFloat = 0
+    var yScale: CGFloat = 0
     var firstColumnX:CGFloat = 0;
     var secondColumnX:CGFloat = 0;
     
@@ -41,7 +43,8 @@ class SubLayerView: UIView {
     var secondRowY:CGFloat = 0;
     
     private var pictureLayer:CAShapeLayer! = CAShapeLayer()
-    private var frameLayer:CALayer!
+    private var frameLayer:CAShapeLayer! = CAShapeLayer()
+    private var valueLabelLayers: CALayer! = CALayer()
     private var absLabelLayer:CALayer!
     private var ordLabelLayer:CALayer!
     
@@ -49,6 +52,8 @@ class SubLayerView: UIView {
     
     let graphData: GraphData!
     
+    let labelTextAttirbute = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+    let valueTextAttirbute = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
     
     init(frame: CGRect, grapherData: GraphData) {
         self.graphData = grapherData
@@ -66,20 +71,25 @@ class SubLayerView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        updatePictureLayer()
+        updateLayers()
     }
     func createSubLayers() {
         
         firstColumnX = leftMargin * 0.75
         secondColumnX = leftMargin * 0.30
-        firstRowY = self.bounds.size.height - bottonMargin * 0.75
+        firstRowY = bottonMargin * 0.20
         secondRowY = self.bounds.size.height - bottonMargin * 0.30
         
-        pictureLayer = self.createPictureLayer()
-        frameLayer = self.createFrameLayer()
+        xScale = canvasRect.width / graphData.limitRect.width
+        yScale = canvasRect.height / graphData.limitRect.height
+        
+        pictureLayer = CAShapeLayer()
+        frameLayer = CAShapeLayer()
+        valueLabelLayers = CALayer()
         absLabelLayer = self.createAbsTitleLayer()
         ordLabelLayer = self.createOrdTitleLayer()
 
+        
         self.layer.addSublayer(frameLayer)
         self.layer.addSublayer(pictureLayer)
         self.clipsToBounds = true
@@ -89,14 +99,18 @@ class SubLayerView: UIView {
     }
     func createAbsTitleLayer() -> CALayer! {
         let layer = CATextLayer()
-        layer.string = NSMutableAttributedString(string: graphData.graphConfig.abscissaTitle + "(" + graphData.graphConfig.abscissaMagnitude + ")", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: self.textSize)])
+        layer.string = NSMutableAttributedString(
+            string: graphData.graphConfig.abscissaTitle + "(" + graphData.graphConfig.abscissaMagnitude + ")",
+            attributes: labelTextAttirbute)
         let absFrameSize = layer.preferredFrameSize()
         layer.frame = CGRect(x: bounds.midX - absFrameSize.width / 2, y: secondRowY - absFrameSize.height / 2, width:absFrameSize.width, height:absFrameSize.height)
         return layer
     }
     func createOrdTitleLayer() -> CALayer! {
         let layer = CATextLayer()
-        layer.string = NSMutableAttributedString(string: graphData.graphConfig.ordenateTitle  + "("+graphData.graphConfig.ordenateMagnitude+")", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: self.textSize)])
+        layer.string = NSMutableAttributedString(
+            string: graphData.graphConfig.ordenateTitle  + "("+graphData.graphConfig.ordenateMagnitude+")",
+            attributes: labelTextAttirbute)
         let ordFrameSize = layer.preferredFrameSize()
         layer.frame = CGRect(x:secondColumnX - ordFrameSize.width / 2, y:bounds.midY - ordFrameSize.height / 2, width:ordFrameSize.width, height:ordFrameSize.height)
         layer.alignmentMode = CATextLayerAlignmentMode.center
@@ -104,42 +118,78 @@ class SubLayerView: UIView {
         layer.transform = CATransform3DMakeRotation(CGFloat.pi / 2, 0, 0, 1)
         return layer
     }
-    func createFrameLayer() -> CALayer! {
+    func updateFrameLayer() {
         let framePath = UIBezierPath()
+        
+        // draw frame
         framePath.move(to: CGPoint(x: canvasRect.origin.x, y: canvasRect.origin.y))
         framePath.addLine(to: CGPoint(x: canvasRect.origin.x, y: canvasRect.maxY))
         framePath.addLine(to: CGPoint(x: canvasRect.maxX, y: canvasRect.maxY))
         framePath.addLine(to: CGPoint(x: canvasRect.maxX, y: canvasRect.origin.y))
         framePath.addLine(to: CGPoint(x: canvasRect.origin.x, y: canvasRect.origin.y))
 
+        // draw vertical divisor
         let yOnset = canvasRect.origin.y
         let yOffset = canvasRect.origin.y + canvasRect.size.height
         let ySeparation = canvasRect.size.height / CGFloat(verticalDivisorCount)
-        for posY in stride(from:Float(yOnset), to:Float(yOffset), by:Float(ySeparation)) {
-            framePath.move(to: CGPoint(x: canvasRect.origin.x, y: CGFloat(posY)))
-            framePath.addLine(to: CGPoint(x:canvasRect.origin.x - 10, y:CGFloat(posY)))
+        for posY in stride(from: yOnset, to: yOffset, by: ySeparation) {
+            framePath.move(to: CGPoint(x: canvasRect.origin.x, y: posY))
+            framePath.addLine(to: CGPoint(x:canvasRect.origin.x - 5, y: posY))
         }
 
-        let xOnset = canvasRect.origin.x
-        let xOffset = canvasRect.origin.x + canvasRect.size.width
-        let xSeparation = canvasRect.size.width / CGFloat(horizontalDivisorCount)
-        for posX in stride(from:Float(xOnset), to:Float(xOffset), by:Float(xSeparation)) {
-            framePath.move(to: CGPoint(x: CGFloat(posX), y: canvasRect.origin.y + canvasRect.size.height))
-            framePath.addLine(to: CGPoint(x:CGFloat(posX), y: canvasRect.origin.y + canvasRect.size.height + 10))
+        let tempoSeparation = graphData.limitRect.width / CGFloat(horizontalDivisorCount)
+        let firstDivNumber = (graphData.limitRect.origin.x / tempoSeparation).rounded()
+        
+        for idx in 1..<horizontalDivisorCount {
+            let realDivNumber = firstDivNumber + CGFloat(idx)
+            let tempoToMark = tempoSeparation * CGFloat(realDivNumber)
+            let posX = canvasRect.origin.x + (tempoToMark - graphData.limitRect.origin.x ) * xScale
+            let posY = canvasRect.maxY
+            framePath.move(to: CGPoint(
+                    x: posX,
+                    y: posY))
+            framePath.addLine(to: CGPoint(x: posX, y: posY + 5))
         }
+        
 
-        let layer = CAShapeLayer()
-        layer.fillColor = UIColor.clear.cgColor
-        layer.strokeColor = UIColor.black.cgColor
-        layer.frame = self.bounds
-        layer.masksToBounds = true
-        layer.path = framePath.cgPath
+        frameLayer.fillColor = UIColor.clear.cgColor
+        frameLayer.strokeColor = UIColor.black.cgColor
+        frameLayer.frame = self.bounds
+        frameLayer.masksToBounds = true
+        frameLayer.path = framePath.cgPath
+        
+        valueLabelLayers.removeFromSuperlayer()
+        
+        valueLabelLayers = CALayer()
+        valueLabelLayers.frame = CGRect(x: canvasRect.origin.x, y: canvasRect.maxY, width: canvasRect.size.width, height: 30)
+        valueLabelLayers.masksToBounds = true
+        
+        for idx in -4..<(horizontalDivisorCount + 3) {
+            let realDivNumber = firstDivNumber + CGFloat(idx)
+            
+            if (realDivNumber.truncatingRemainder(dividingBy: 4) == 0) {
+                let valueLabelLayer = CATextLayer()
+                let tempoToWrite = tempoSeparation * CGFloat(realDivNumber)
+                valueLabelLayer.string = NSAttributedString(
+                    string: String(format: "%.0f", tempoToWrite),
+                    attributes: valueTextAttirbute)
+                valueLabelLayer.frame = CGRect(
+                    x: (tempoToWrite - graphData.limitRect.origin.x ) * xScale,
+                    y: 0,
+                    width: layer.preferredFrameSize().width,
+                    height: layer.preferredFrameSize().height)
+                
+                valueLabelLayers.addSublayer(valueLabelLayer)
+            }
+        }
+        valueLabelLayers.transform = CATransform3DMakeTranslation(0, firstRowY, 0)
+        self.layer.addSublayer(valueLabelLayers)
 
-        return layer
     }
 
-    func createPictureLayer() -> CAShapeLayer! {
-        return CAShapeLayer()
+    func updateLayers() {
+        self.updatePictureLayer()
+        self.updateFrameLayer()
     }
     func updatePictureLayer() {
         let picturePath = UIBezierPath()
@@ -157,7 +207,7 @@ class SubLayerView: UIView {
         
         picturePath.apply(CGAffineTransform(scaleX: 1.0, y: -1.0))
         picturePath.apply(CGAffineTransform(translationX: -graphData.limitRect.origin.x, y: graphData.limitRect.maxY))
-        picturePath.apply(CGAffineTransform(scaleX: canvasRect.width / graphData.limitRect.width, y: canvasRect.height / graphData.limitRect.height))
+        picturePath.apply(CGAffineTransform(scaleX: xScale, y: yScale))
         pictureLayer.fillColor = UIColor.clear.cgColor
         pictureLayer.strokeColor = UIColor.blue.cgColor
         pictureLayer.frame = canvasRect
