@@ -55,9 +55,9 @@ class FadeXYGrapherData: GraphData {
     override func shiftOnset() {
         if (pointVector.count > 0) {
             if (pointVector.first!.count > 0) {
-                limitRect.origin.x = max(limitRect.minX, pointVector.last!.last!.x - limitRect.maxX)
+                limitRect.origin.x = max(limitRect.origin.x, pointVector.last!.last!.x - limitRect.size.width)
                 for idx in 0..<pointVector.count {
-                    if (pointVector[idx].first!.x < limitRect.origin.x) {
+                    if (pointVector[idx].first!.x < limitRect.origin.x - limitRect.size.width) {
                         pointVector[idx].remove(at:0)
                     }
                 }
