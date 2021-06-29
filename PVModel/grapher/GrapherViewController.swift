@@ -44,7 +44,8 @@ class SubLayerView: UIView {
     
     private var pictureLayer:CAShapeLayer! = CAShapeLayer()
     private var frameLayer:CAShapeLayer! = CAShapeLayer()
-    private var valueLabelLayers: CALayer! = CALayer()
+    private var hValueLabelLayers: CALayer! = CALayer()
+    private var vValueLabelLayers: CALayer! = CALayer()
     private var absLabelLayer:CALayer!
     private var ordLabelLayer:CALayer!
     
@@ -85,7 +86,8 @@ class SubLayerView: UIView {
         
         pictureLayer = CAShapeLayer()
         frameLayer = CAShapeLayer()
-        valueLabelLayers = CALayer()
+        hValueLabelLayers = CALayer()
+        vValueLabelLayers = CALayer()
         absLabelLayer = self.createAbsTitleLayer()
         ordLabelLayer = self.createOrdTitleLayer()
 
@@ -140,6 +142,7 @@ class SubLayerView: UIView {
         let tempoSeparation = graphData.limitRect.width / CGFloat(horizontalDivisorCount)
         let firstDivNumber = (graphData.limitRect.origin.x / tempoSeparation).rounded()
         
+        // draw horizontal divisor
         for idx in 1..<horizontalDivisorCount {
             let realDivNumber = firstDivNumber + CGFloat(idx)
             let tempoToMark = tempoSeparation * CGFloat(realDivNumber)
@@ -158,32 +161,54 @@ class SubLayerView: UIView {
         frameLayer.masksToBounds = true
         frameLayer.path = framePath.cgPath
         
-        valueLabelLayers.removeFromSuperlayer()
-        
-        valueLabelLayers = CALayer()
-        valueLabelLayers.frame = CGRect(x: canvasRect.origin.x, y: canvasRect.maxY, width: canvasRect.size.width, height: 30)
-        valueLabelLayers.masksToBounds = true
+        // write horizontal value labels
+        hValueLabelLayers.removeFromSuperlayer()
+        hValueLabelLayers = CALayer()
+        hValueLabelLayers.frame = CGRect(x: canvasRect.origin.x, y: canvasRect.maxY, width: canvasRect.size.width, height: 30)
+        hValueLabelLayers.masksToBounds = true
         
         for idx in -4..<(horizontalDivisorCount + 3) {
             let realDivNumber = firstDivNumber + CGFloat(idx)
             
             if (realDivNumber.truncatingRemainder(dividingBy: 4) == 0) {
-                let valueLabelLayer = CATextLayer()
+                let valueLayer = CATextLayer()
                 let tempoToWrite = tempoSeparation * CGFloat(realDivNumber)
-                valueLabelLayer.string = NSAttributedString(
+                valueLayer.string = NSAttributedString(
                     string: String(format: "%.0f", tempoToWrite),
                     attributes: valueTextAttirbute)
-                valueLabelLayer.frame = CGRect(
+                valueLayer.frame = CGRect(
                     x: (tempoToWrite - graphData.limitRect.origin.x ) * xScale,
                     y: 0,
-                    width: layer.preferredFrameSize().width,
-                    height: layer.preferredFrameSize().height)
+                    width: valueLayer.preferredFrameSize().width,
+                    height: valueLayer.preferredFrameSize().height)
                 
-                valueLabelLayers.addSublayer(valueLabelLayer)
+                hValueLabelLayers.addSublayer(valueLayer)
             }
         }
-        valueLabelLayers.transform = CATransform3DMakeTranslation(0, firstRowY, 0)
-        self.layer.addSublayer(valueLabelLayers)
+        hValueLabelLayers.transform = CATransform3DMakeTranslation(0, firstRowY, 0)
+        self.layer.addSublayer(hValueLabelLayers)
+        
+        // write vertical value labels
+        vValueLabelLayers.removeFromSuperlayer()
+        vValueLabelLayers = CALayer()
+        vValueLabelLayers.frame = CGRect(x: canvasRect.origin.x * 0.6 - 5, y: canvasRect.origin.y, width: canvasRect.origin.x * 0.4, height: canvasRect.height)
+        vValueLabelLayers.masksToBounds = true
+        
+        for idx in 1...verticalDivisorCount {
+            let valueLayer = CATextLayer()
+            valueLayer.string = NSAttributedString(
+                string: String(format: "%.0f", CGFloat(verticalDivisorCount - idx) * ySeparation / yScale),
+                attributes: valueTextAttirbute)
+            valueLayer.frame = CGRect(
+                x: vValueLabelLayers.frame.width - valueLayer.preferredFrameSize().width,
+                y: ySeparation * CGFloat(idx) - valueLayer.preferredFrameSize().height,
+                width: valueLayer.preferredFrameSize().width,
+                height: valueLayer.preferredFrameSize().height)
+            vValueLabelLayers.addSublayer(valueLayer)
+        }
+        
+        
+        self.layer.addSublayer(vValueLabelLayers)
 
     }
 
@@ -204,6 +229,8 @@ class SubLayerView: UIView {
             }
         }
         self.graphData.semaphore.signal()
+        
+        
         
         picturePath.apply(CGAffineTransform(scaleX: 1.0, y: -1.0))
         picturePath.apply(CGAffineTransform(translationX: -graphData.limitRect.origin.x, y: graphData.limitRect.maxY))
