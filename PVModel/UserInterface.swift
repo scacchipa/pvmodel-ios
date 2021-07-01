@@ -16,14 +16,14 @@ import UIKit
 @IBDesignable
 class VerticalSlider :UIControl {
     @IBInspectable public var minValue:CGFloat = 1
-    @IBInspectable public var minColor:UIColor = .blue
+    @IBInspectable public var minColor:UIColor = .purple
     
     @IBInspectable public var maxValue: CGFloat = 100.0
     @IBInspectable public var maxColor: UIColor = .lightGray
     
-    @IBInspectable public var thumbRadius: CGFloat = 12.0
-    @IBInspectable public var thumbCorner: CGFloat = 12.0
-    @IBInspectable public var thumbColor: UIColor = .green
+    @IBInspectable public var thumbRadius: CGFloat = 5.0
+    @IBInspectable public var thumbCorner: CGFloat = 5.0
+    @IBInspectable public var thumbColor: UIColor = .purple
     
     @IBInspectable public var trackWidth: CGFloat = 5.0
     
@@ -142,16 +142,16 @@ class VerticalSlider :UIControl {
 @IBDesignable
 class HorizontalSlider: UIControl {
     @IBInspectable public var minValue:CGFloat = 1
-    @IBInspectable public var minColor:UIColor = .blue
+    @IBInspectable public var minColor:UIColor = .purple
     
     @IBInspectable public var maxValue: CGFloat = 100.0
     @IBInspectable public var maxColor: UIColor = .lightGray
     
-    @IBInspectable public var thumbRadius: CGFloat = 12.0
-    @IBInspectable public var thumbCorner: CGFloat = 12.0
-    @IBInspectable public var thumbColor: UIColor = .green
+    @IBInspectable public var thumbRadius: CGFloat = 5.0
+    @IBInspectable public var thumbCorner: CGFloat = 5.0
+    @IBInspectable public var thumbColor: UIColor = .purple
     
-    @IBInspectable public var trackWidth: CGFloat = 5.0
+    @IBInspectable public var trackWidth: CGFloat = 2.0
     
     @IBInspectable public var value: CGFloat = 100 {
         didSet {

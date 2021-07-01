@@ -61,7 +61,6 @@ class SubLayerView: UIView {
         self.graphData = grapherData
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor.yellow
         
         canvasRect = CGRect(x: leftMargin, y: topMargin, width: self.bounds.size.width - rightMargin - leftMargin, height: self.bounds.size.height - bottonMargin - topMargin)
         
