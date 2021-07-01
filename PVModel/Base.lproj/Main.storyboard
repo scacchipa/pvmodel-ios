@@ -18,28 +18,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IfW-ab-ngS">
-                                <rect key="frame" x="8" y="526" width="359" height="133"/>
+                                <rect key="frame" x="8" y="518" width="359" height="141"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contractilidad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGC-L7-HJY">
-                                        <rect key="frame" x="8" y="112" width="91" height="17"/>
+                                        <rect key="frame" x="8" y="96" width="91" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Poscarga" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jni-q7-QfJ">
-                                        <rect key="frame" x="8" y="69" width="60.5" height="17"/>
+                                        <rect key="frame" x="8" y="51" width="60.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Precarga" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s6O-28-8Gq">
-                                        <rect key="frame" x="8" y="26" width="58" height="17"/>
+                                        <rect key="frame" x="8" y="6" width="58" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYM-sb-BS6" customClass="HorizontalSlider" customModule="PVModel" customModuleProvider="target">
-                                        <rect key="frame" x="4" y="4" width="351" height="20"/>
+                                        <rect key="frame" x="4" y="25" width="351" height="20"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="trz-qo-WVP"/>
@@ -52,13 +52,13 @@
                                                 <real key="value" value="30"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="thumbRadius">
-                                                <real key="value" value="12"/>
+                                                <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="thumbCorner">
-                                                <real key="value" value="12"/>
+                                                <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
-                                                <real key="value" value="5"/>
+                                                <integer key="value" value="2"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="value">
                                                 <real key="value" value="22"/>
@@ -66,7 +66,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzO-gu-5ZQ" customClass="HorizontalSlider" customModule="PVModel" customModuleProvider="target">
-                                        <rect key="frame" x="2" y="47" width="353" height="20"/>
+                                        <rect key="frame" x="4" y="70" width="351" height="20"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="xpD-Ue-z0h"/>
@@ -79,13 +79,13 @@
                                                 <real key="value" value="1200"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="thumbRadius">
-                                                <real key="value" value="12"/>
+                                                <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="thumbCorner">
-                                                <real key="value" value="12"/>
+                                                <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
-                                                <real key="value" value="5"/>
+                                                <integer key="value" value="2"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="value">
                                                 <real key="value" value="700"/>
@@ -93,7 +93,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lqy-7V-bVV" customClass="HorizontalSlider" customModule="PVModel" customModuleProvider="target">
-                                        <rect key="frame" x="4" y="90" width="351" height="20"/>
+                                        <rect key="frame" x="4" y="115" width="351" height="20"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="SlB-Uh-U9C"/>
@@ -106,13 +106,13 @@
                                                 <real key="value" value="1400"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="thumbRadius">
-                                                <real key="value" value="12"/>
+                                                <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="thumbCorner">
-                                                <real key="value" value="12"/>
+                                                <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
-                                                <real key="value" value="5"/>
+                                                <integer key="value" value="2"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="value">
                                                 <real key="value" value="800"/>
@@ -120,31 +120,31 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="hYM-sb-BS6" secondAttribute="trailing" constant="4" id="0lE-XY-KNt"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jni-q7-QfJ" secondAttribute="trailing" constant="20" symbolic="YES" id="6br-Of-3ZR"/>
+                                    <constraint firstAttribute="bottom" secondItem="Lqy-7V-bVV" secondAttribute="bottom" constant="6" id="800-5q-B2O"/>
+                                    <constraint firstItem="Jni-q7-QfJ" firstAttribute="top" secondItem="hYM-sb-BS6" secondAttribute="bottom" constant="6" id="8Bh-wP-DDq"/>
                                     <constraint firstAttribute="trailing" secondItem="kzO-gu-5ZQ" secondAttribute="trailing" constant="4" id="9RU-AG-XB6"/>
                                     <constraint firstItem="Lqy-7V-bVV" firstAttribute="leading" secondItem="IfW-ab-ngS" secondAttribute="leading" constant="4" id="ANe-6s-THJ"/>
-                                    <constraint firstItem="kzO-gu-5ZQ" firstAttribute="top" secondItem="s6O-28-8Gq" secondAttribute="bottom" constant="4" id="Aof-WX-kiN"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tGC-L7-HJY" secondAttribute="trailing" constant="20" symbolic="YES" id="CCb-Cp-8Sr"/>
                                     <constraint firstItem="Jni-q7-QfJ" firstAttribute="leading" secondItem="IfW-ab-ngS" secondAttribute="leading" constant="8" id="DDR-HY-uNo"/>
-                                    <constraint firstItem="Lqy-7V-bVV" firstAttribute="top" secondItem="Jni-q7-QfJ" secondAttribute="bottom" constant="4" id="GMQ-j3-35m"/>
+                                    <constraint firstItem="tGC-L7-HJY" firstAttribute="top" secondItem="kzO-gu-5ZQ" secondAttribute="bottom" constant="6" id="Gwd-7z-MCT"/>
                                     <constraint firstItem="hYM-sb-BS6" firstAttribute="leading" secondItem="IfW-ab-ngS" secondAttribute="leading" constant="4" id="KXx-NO-LLI"/>
-                                    <constraint firstItem="kzO-gu-5ZQ" firstAttribute="leading" secondItem="IfW-ab-ngS" secondAttribute="leading" constant="2" id="Opz-Kg-lTb"/>
+                                    <constraint firstItem="kzO-gu-5ZQ" firstAttribute="top" secondItem="Jni-q7-QfJ" secondAttribute="bottom" constant="2" id="NKg-CO-f7V"/>
+                                    <constraint firstItem="hYM-sb-BS6" firstAttribute="top" secondItem="s6O-28-8Gq" secondAttribute="bottom" constant="2" id="Nqe-Fb-bwz"/>
+                                    <constraint firstItem="kzO-gu-5ZQ" firstAttribute="leading" secondItem="IfW-ab-ngS" secondAttribute="leading" constant="4" id="Opz-Kg-lTb"/>
                                     <constraint firstItem="s6O-28-8Gq" firstAttribute="leading" secondItem="IfW-ab-ngS" secondAttribute="leading" constant="8" id="VTo-Vv-4Ff"/>
+                                    <constraint firstItem="Lqy-7V-bVV" firstAttribute="top" secondItem="tGC-L7-HJY" secondAttribute="bottom" constant="2" id="YVg-yh-PbT"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="s6O-28-8Gq" secondAttribute="trailing" constant="20" symbolic="YES" id="Z44-m0-tc0"/>
-                                    <constraint firstAttribute="bottom" secondItem="tGC-L7-HJY" secondAttribute="bottom" constant="4" id="gFa-Ys-Fqp"/>
                                     <constraint firstAttribute="trailing" secondItem="Lqy-7V-bVV" secondAttribute="trailing" constant="4" id="j5Z-XO-Bl3"/>
                                     <constraint firstItem="tGC-L7-HJY" firstAttribute="leading" secondItem="IfW-ab-ngS" secondAttribute="leading" constant="8" id="k7p-nV-6bi"/>
-                                    <constraint firstItem="hYM-sb-BS6" firstAttribute="top" secondItem="IfW-ab-ngS" secondAttribute="top" constant="4" id="qXg-P4-FNv"/>
-                                    <constraint firstItem="tGC-L7-HJY" firstAttribute="top" secondItem="Lqy-7V-bVV" secondAttribute="bottom" constant="2" id="rCa-3h-w5j"/>
-                                    <constraint firstItem="s6O-28-8Gq" firstAttribute="top" secondItem="hYM-sb-BS6" secondAttribute="bottom" constant="2" id="sfi-My-bc1"/>
-                                    <constraint firstItem="Jni-q7-QfJ" firstAttribute="top" secondItem="kzO-gu-5ZQ" secondAttribute="bottom" constant="2" id="spn-fd-hOE"/>
+                                    <constraint firstItem="s6O-28-8Gq" firstAttribute="top" secondItem="IfW-ab-ngS" secondAttribute="top" constant="6" id="oOU-oS-EHO"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddy-iJ-mQE" customClass="VerticalSlider" customModule="PVModel" customModuleProvider="target">
-                                <rect key="frame" x="8" y="57" width="28" height="461"/>
+                                <rect key="frame" x="8" y="57" width="28" height="453"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="gJB-M5-o0F"/>
@@ -157,21 +157,21 @@
                                         <real key="value" value="100"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
-                                        <real key="value" value="5"/>
+                                        <integer key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="value">
                                         <integer key="value" value="100"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="thumbCorner">
-                                        <real key="value" value="12"/>
+                                        <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="thumbRadius">
-                                        <real key="value" value="12"/>
+                                        <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" restorationIdentifier="containerView" translatesAutoresizingMaskIntoConstraints="NO" id="DKJ-k0-Bl6">
-                                <rect key="frame" x="44" y="52" width="323" height="466"/>
+                                <rect key="frame" x="44" y="52" width="323" height="458"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SSj-cr-b6U">
