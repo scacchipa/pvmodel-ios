@@ -42,7 +42,7 @@ class SubLayerView: UIView {
     var firstRowY:CGFloat = 0;
     var secondRowY:CGFloat = 0;
     
-    private var pictureLayer:CAShapeLayer! = CAShapeLayer()
+    private var pictureLayers:[CAShapeLayer] = [CAShapeLayer()]
     private var frameLayer:CAShapeLayer! = CAShapeLayer()
     private var eventLayer:CAShapeLayer! = CAShapeLayer()
     private var hValueLabelLayers: CALayer! = CALayer()
@@ -90,8 +90,21 @@ class SubLayerView: UIView {
         ordLabelLayer = self.createOrdTitleLayer()
 
         
+        let mainPictureLayer = CAShapeLayer()
+        pictureLayers = [CAShapeLayer]()
+        for idx in 0..<graphData.graphConfig.curveCount() {
+            let layer = CAShapeLayer()
+            layer.frame = canvasRect
+            layer.strokeColor = graphData.graphConfig.curveConfigs[idx].color
+            layer.fillColor = UIColor.clear.cgColor
+            layer.backgroundColor = UIColor.clear.cgColor
+            layer.masksToBounds = true
+            pictureLayers.append(layer)
+            mainPictureLayer.addSublayer(layer)
+        }
+        
         self.layer.addSublayer(frameLayer)
-        self.layer.addSublayer(pictureLayer)
+        self.layer.addSublayer(mainPictureLayer)
         self.layer.addSublayer(eventLayer)
         self.clipsToBounds = true
         self.layer.addSublayer(absLabelLayer)
@@ -150,8 +163,7 @@ class SubLayerView: UIView {
             framePath.move(to: CGPoint(x: posX, y: posY))
             framePath.addLine(to: CGPoint(x: posX, y: posY + 5))
         }
-        
-
+    
         frameLayer.fillColor = UIColor.clear.cgColor
         frameLayer.strokeColor = UIColor.black.cgColor
         frameLayer.frame = self.bounds
@@ -207,34 +219,31 @@ class SubLayerView: UIView {
     }
 
     func updateLayers() {
-        self.updatePictureLayer()
+        self.updatePictureLayers()
         self.updateFrameLayer()
         self.updateEventLayer()
     }
-    func updatePictureLayer() {
-        let picturePath = UIBezierPath()
-
+    func updatePictureLayers() {
         self.graphData.semaphore.wait()
-        for pointList in self.graphData.pointVector {
+        
+        for idx in 0..<graphData.pointVector.count {
+            let pointList = graphData.pointVector[idx]
             if pointList.count > 0 {
+                let picturePath = UIBezierPath()
+                
                 picturePath.move(to: pointList.first!)
                 for point in pointList {
                     picturePath.addLine(to: point)
                 }
+                
+                picturePath.apply(CGAffineTransform(scaleX: 1.0, y: -1.0))
+                picturePath.apply(CGAffineTransform(translationX: -graphData.limitRect.origin.x, y: graphData.limitRect.maxY))
+                picturePath.apply(CGAffineTransform(scaleX: xScale, y: yScale))
+            
+                pictureLayers[idx].path = picturePath.cgPath
             }
         }
-
         self.graphData.semaphore.signal()
-        
-        picturePath.apply(CGAffineTransform(scaleX: 1.0, y: -1.0))
-        picturePath.apply(CGAffineTransform(translationX: -graphData.limitRect.origin.x, y: graphData.limitRect.maxY))
-        picturePath.apply(CGAffineTransform(scaleX: xScale, y: yScale))
-        pictureLayer.fillColor = UIColor.clear.cgColor
-        pictureLayer.strokeColor = UIColor.black.cgColor
-        pictureLayer.frame = canvasRect
-        pictureLayer.masksToBounds = true
-        pictureLayer.path = picturePath.cgPath
-
     }
     private func updateEventLayer() {
         let eventPath = UIBezierPath()
