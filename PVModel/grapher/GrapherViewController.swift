@@ -44,6 +44,7 @@ class SubLayerView: UIView {
     
     private var pictureLayer:CAShapeLayer! = CAShapeLayer()
     private var frameLayer:CAShapeLayer! = CAShapeLayer()
+    private var eventLayer:CAShapeLayer! = CAShapeLayer()
     private var hValueLabelLayers: CALayer! = CALayer()
     private var vValueLabelLayers: CALayer! = CALayer()
     private var absLabelLayer:CALayer!
@@ -84,8 +85,6 @@ class SubLayerView: UIView {
         xScale = canvasRect.width / graphData.limitRect.width
         yScale = canvasRect.height / graphData.limitRect.height
         
-        pictureLayer = CAShapeLayer()
-        frameLayer = CAShapeLayer()
         hValueLabelLayers = CALayer()
         vValueLabelLayers = CALayer()
         absLabelLayer = self.createAbsTitleLayer()
@@ -94,6 +93,7 @@ class SubLayerView: UIView {
         
         self.layer.addSublayer(frameLayer)
         self.layer.addSublayer(pictureLayer)
+        self.layer.addSublayer(eventLayer)
         self.clipsToBounds = true
         self.layer.addSublayer(absLabelLayer)
         self.layer.addSublayer(ordLabelLayer)
@@ -148,9 +148,7 @@ class SubLayerView: UIView {
             let tempoToMark = tempoSeparation * CGFloat(realDivNumber)
             let posX = canvasRect.origin.x + (tempoToMark - graphData.limitRect.origin.x ) * xScale
             let posY = canvasRect.maxY
-            framePath.move(to: CGPoint(
-                    x: posX,
-                    y: posY))
+            framePath.move(to: CGPoint(x: posX, y: posY))
             framePath.addLine(to: CGPoint(x: posX, y: posY + 5))
         }
         
@@ -212,6 +210,7 @@ class SubLayerView: UIView {
     func updateLayers() {
         self.updatePictureLayer()
         self.updateFrameLayer()
+        self.updateEventLayer()
     }
     func updatePictureLayer() {
         let picturePath = UIBezierPath()
@@ -225,18 +224,41 @@ class SubLayerView: UIView {
                 }
             }
         }
+
         self.graphData.semaphore.signal()
-        
-        
         
         picturePath.apply(CGAffineTransform(scaleX: 1.0, y: -1.0))
         picturePath.apply(CGAffineTransform(translationX: -graphData.limitRect.origin.x, y: graphData.limitRect.maxY))
         picturePath.apply(CGAffineTransform(scaleX: xScale, y: yScale))
         pictureLayer.fillColor = UIColor.clear.cgColor
-        pictureLayer.strokeColor = UIColor.blue.cgColor
+        pictureLayer.strokeColor = UIColor.black.cgColor
         pictureLayer.frame = canvasRect
         pictureLayer.masksToBounds = true
         pictureLayer.path = picturePath.cgPath
 
+    }
+    private func updateEventLayer() {
+        let eventPath = UIBezierPath()
+        
+        self.graphData.semaphore.wait()
+        for pointList in self.graphData.pointVector {
+            if pointList.count > 0 {
+                let center = CGPoint(
+                    x: (pointList.last!.x - graphData.limitRect.origin.x) * xScale,
+                    y: (graphData.limitRect.maxY - pointList.last!.y) * yScale)
+                eventPath.move(to: center)
+                eventPath.addArc(
+                    withCenter: center,
+                    radius: 2, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
+            }
+        }
+        self.graphData.semaphore.signal()
+
+        eventLayer.fillColor = UIColor.blue.cgColor
+        eventLayer.strokeColor = UIColor.blue.cgColor
+        eventLayer.frame = canvasRect
+        eventLayer.masksToBounds = true
+        eventLayer.path = eventPath.cgPath
+        
     }
 }
