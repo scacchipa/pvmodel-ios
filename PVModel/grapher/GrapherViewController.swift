@@ -206,10 +206,7 @@ class SubLayerView: UIView {
                 height: valueLayer.preferredFrameSize().height)
             vValueLabelLayers.addSublayer(valueLayer)
         }
-        
-        
         self.layer.addSublayer(vValueLabelLayers)
-
     }
 
     func updateLayers() {
