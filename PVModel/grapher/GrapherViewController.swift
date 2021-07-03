@@ -42,7 +42,11 @@ class SubLayerView: UIView {
     var firstRowY:CGFloat = 0;
     var secondRowY:CGFloat = 0;
     
-    private var pictureLayers:[CAShapeLayer] = [CAShapeLayer()]
+    let dxInset: CGFloat = -4
+    let dyInset: CGFloat = -4
+    
+    private var pictureLayers:CAShapeLayer = CAShapeLayer()
+    private var curveNameLayers: CATextLayer = CATextLayer()
     private var frameLayer:CAShapeLayer! = CAShapeLayer()
     private var eventLayer:CAShapeLayer! = CAShapeLayer()
     private var hValueLabelLayers: CALayer! = CALayer()
@@ -89,9 +93,6 @@ class SubLayerView: UIView {
         absLabelLayer = self.createAbsTitleLayer()
         ordLabelLayer = self.createOrdTitleLayer()
 
-        
-        let mainPictureLayer = CAShapeLayer()
-        pictureLayers = [CAShapeLayer]()
         for idx in 0..<graphData.graphConfig.curveCount() {
             let layer = CAShapeLayer()
             layer.frame = canvasRect
@@ -99,18 +100,53 @@ class SubLayerView: UIView {
             layer.fillColor = UIColor.clear.cgColor
             layer.backgroundColor = UIColor.clear.cgColor
             layer.masksToBounds = true
-            pictureLayers.append(layer)
-            mainPictureLayer.addSublayer(layer)
+            pictureLayers.addSublayer(layer)
+        }
+        
+        for idx in 0..<graphData.graphConfig.curveCount() {
+            let curveConf = graphData.graphConfig.curveConfigs[idx]
+            
+            let textLayer = CATextLayer()
+            textLayer.string = NSMutableAttributedString(
+                string: curveConf.curveTitle,
+                attributes: labelTextAttirbute)
+            let textFrameSize = textLayer.preferredFrameSize()
+            let textRect = CGRect(
+                x: canvasRect.maxX - rightMargin * CGFloat(2) - textFrameSize.width,
+                y: topMargin + textFrameSize.height * CGFloat(idx * 2 + 1),
+                width: textFrameSize.width,
+                height: textFrameSize.height)
+            textLayer.foregroundColor = curveConf.color
+            textLayer.frame = textRect
+
+            let insetRect = textRect.inset(by: UIEdgeInsets(top: dyInset, left: dxInset, bottom: dyInset, right: dxInset))
+            let shapePath = UIBezierPath()
+            shapePath.move(to: insetRect.origin)
+            shapePath.addLine(to: CGPoint(x: insetRect.maxX, y: insetRect.minY))
+            shapePath.addLine(to: CGPoint(x: insetRect.maxX, y: insetRect.maxY))
+            shapePath.addLine(to: CGPoint(x: insetRect.minX, y: insetRect.maxY))
+            shapePath.addLine(to: insetRect.origin)
+            
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.path = shapePath.cgPath
+            shapeLayer.strokeColor = graphData.graphConfig.curveConfigs[idx].color
+            
+            curveNameLayers.addSublayer(shapeLayer)
+            curveNameLayers.addSublayer(textLayer)
         }
         
         self.layer.addSublayer(frameLayer)
-        self.layer.addSublayer(mainPictureLayer)
+        self.layer.addSublayer(pictureLayers)
         self.layer.addSublayer(eventLayer)
+        self.layer.addSublayer(curveNameLayers)
         self.clipsToBounds = true
         self.layer.addSublayer(absLabelLayer)
         self.layer.addSublayer(ordLabelLayer)
-        
     }
+    private func addCGPoint(_ p1: CGPoint, _ p2: CGPoint) -> CGPoint {
+         return CGPoint(x: p1.x + p2.x, y: p1.y + p2.y)
+    }
+    
     func createAbsTitleLayer() -> CALayer! {
         let layer = CATextLayer()
         layer.string = NSMutableAttributedString(
@@ -239,8 +275,7 @@ class SubLayerView: UIView {
                 picturePath.apply(CGAffineTransform(scaleX: 1.0, y: -1.0))
                 picturePath.apply(CGAffineTransform(translationX: -graphData.limitRect.origin.x, y: graphData.limitRect.maxY))
                 picturePath.apply(CGAffineTransform(scaleX: xScale, y: yScale))
-            
-                pictureLayers[idx].path = picturePath.cgPath
+                (pictureLayers.sublayers![idx] as! CAShapeLayer).path = picturePath.cgPath
             }
         }
         self.graphData.semaphore.signal()
