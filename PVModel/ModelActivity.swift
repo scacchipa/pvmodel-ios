@@ -140,7 +140,6 @@ class ModelViewController : UIViewController {
 
     @objc func velocityChanged(control: VerticalSlider, withEvent event: UIEvent) {
         timerThread!.invalidate()
-        print(control.value)
         timerThread = Timer.scheduledTimer(timeInterval: TimeInterval(Double(lapseOfTime) / 1000.0 * 100.0 / Double(control.value)), target: self, selector: #selector(mainRefresh), userInfo: nil,  repeats: true)
     }
     @objc func preloadChanged(control: HorizontalSlider, withEvent event: UIEvent) {
