@@ -102,7 +102,7 @@ class ModelViewController : UIViewController {
         preloadSlider.addTarget(self, action: #selector(preloadChanged), for: UIControl.Event.valueChanged)
         afterloadSlider.addTarget(self, action: #selector(afterloadChanged), for: UIControl.Event.valueChanged)
         contractSlider.addTarget(self, action: #selector(contractilityChanged), for: UIControl.Event.valueChanged)
-        timerThread = Timer.scheduledTimer(timeInterval: TimeInterval(lapseOfTime / 1000), target: self, selector: #selector(mainRefresh), userInfo: nil,  repeats: true)
+        timerThread = Timer.scheduledTimer(timeInterval: TimeInterval(Double(lapseOfTime) / 1000), target: self, selector: #selector(mainRefresh), userInfo: nil,  repeats: true)
     }
     @objc func mainRefresh(timer: Timer) {
         try? heart.calculateAdvance(lapseOfTime: lapseOfTime)
@@ -140,7 +140,8 @@ class ModelViewController : UIViewController {
 
     @objc func velocityChanged(control: VerticalSlider, withEvent event: UIEvent) {
         timerThread!.invalidate()
-        timerThread = Timer.scheduledTimer(timeInterval: TimeInterval(Double(lapseOfTime) / Double(control.value) * 0.1), target: self, selector: #selector(mainRefresh), userInfo: nil,  repeats: true)
+        print(control.value)
+        timerThread = Timer.scheduledTimer(timeInterval: TimeInterval(Double(lapseOfTime) / 1000.0 * 100.0 / Double(control.value)), target: self, selector: #selector(mainRefresh), userInfo: nil,  repeats: true)
     }
     @objc func preloadChanged(control: HorizontalSlider, withEvent event: UIEvent) {
         heart.veinCavity.volumen = Double(control.value * 227);
