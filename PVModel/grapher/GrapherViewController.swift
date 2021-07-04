@@ -26,10 +26,11 @@ class GrapherViewController: UIViewController   {
 
 class SubLayerView: UIView {
     let textSize:CGFloat = 16
-    let leftMargin:CGFloat = 90
-    let rightMargin:CGFloat = 10
-    let topMargin:CGFloat = 10
-    let bottonMargin:CGFloat = 60
+    
+    let leftMarginFactor: CGFloat = 0.25
+    let rightMarginFactor: CGFloat = 0.05
+    let topMarginFactor: CGFloat = 0.01
+    let bottomMarginFactor: CGFloat = 0.15
     
     let verticalDivisorCount = 5
     let horizontalDivisorCount = 15
@@ -66,7 +67,11 @@ class SubLayerView: UIView {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        canvasRect = CGRect(x: leftMargin, y: topMargin, width: self.bounds.size.width - rightMargin - leftMargin, height: self.bounds.size.height - bottonMargin - topMargin)
+        canvasRect = CGRect(
+            x: bounds.width * leftMarginFactor,
+            y: bounds.height * topMarginFactor,
+            width: bounds.width * (1 - rightMarginFactor - leftMarginFactor),
+            height: bounds.height * (1 - topMarginFactor - bottomMarginFactor))
         
         self.createSubLayers()
     }
@@ -80,10 +85,10 @@ class SubLayerView: UIView {
     }
     func createSubLayers() {
         
-        firstColumnX = leftMargin * 0.75
-        secondColumnX = leftMargin * 0.30
-        firstRowY = bottonMargin * 0.20
-        secondRowY = self.bounds.size.height - bottonMargin * 0.30
+        firstColumnX = canvasRect.origin.x * 0.75
+        secondColumnX = canvasRect.origin.x * 0.30
+        firstRowY = bounds.height - bounds.height * bottomMarginFactor * 0.20
+        secondRowY = bounds.height - bounds.height * bottomMarginFactor * 0.30
         
         xScale = canvasRect.width / graphData.limitRect.width
         yScale = canvasRect.height / graphData.limitRect.height
@@ -112,8 +117,8 @@ class SubLayerView: UIView {
                 attributes: labelTextAttirbute)
             let textFrameSize = textLayer.preferredFrameSize()
             let textRect = CGRect(
-                x: canvasRect.maxX - rightMargin * CGFloat(2) - textFrameSize.width,
-                y: topMargin + textFrameSize.height * CGFloat(idx * 2 + 1),
+                x: canvasRect.maxX - rightMarginFactor * bounds.width - textFrameSize.width,
+                y: canvasRect.minX + textFrameSize.height * CGFloat(idx * 2 - 1),
                 width: textFrameSize.width,
                 height: textFrameSize.height)
             textLayer.foregroundColor = curveConf.color
@@ -130,6 +135,7 @@ class SubLayerView: UIView {
             let shapeLayer = CAShapeLayer()
             shapeLayer.path = shapePath.cgPath
             shapeLayer.strokeColor = graphData.graphConfig.curveConfigs[idx].color
+            shapeLayer.fillColor = UIColor.lightGray.cgColor
             
             curveNameLayers.addSublayer(shapeLayer)
             curveNameLayers.addSublayer(textLayer)
@@ -153,7 +159,7 @@ class SubLayerView: UIView {
             string: graphData.graphConfig.abscissaTitle + "(" + graphData.graphConfig.abscissaMagnitude + ")",
             attributes: labelTextAttirbute)
         let absFrameSize = layer.preferredFrameSize()
-        layer.frame = CGRect(x: bounds.midX - absFrameSize.width / 2, y: secondRowY - absFrameSize.height / 2, width:absFrameSize.width, height:absFrameSize.height)
+        layer.frame = CGRect(x: canvasRect.midX - absFrameSize.width / 2, y: secondRowY - absFrameSize.height / 2, width:absFrameSize.width, height:absFrameSize.height)
         return layer
     }
     func createOrdTitleLayer() -> CALayer! {
@@ -162,7 +168,7 @@ class SubLayerView: UIView {
             string: graphData.graphConfig.ordenateTitle  + "("+graphData.graphConfig.ordenateMagnitude+")",
             attributes: labelTextAttirbute)
         let ordFrameSize = layer.preferredFrameSize()
-        layer.frame = CGRect(x:secondColumnX - ordFrameSize.width / 2, y:bounds.midY - ordFrameSize.height / 2, width:ordFrameSize.width, height:ordFrameSize.height)
+        layer.frame = CGRect(x:secondColumnX - ordFrameSize.width / 2, y:canvasRect.midY - ordFrameSize.height / 2, width:ordFrameSize.width, height:ordFrameSize.height)
         layer.alignmentMode = CATextLayerAlignmentMode.center
         
         layer.transform = CATransform3DMakeRotation(CGFloat.pi / 2, 0, 0, 1)
@@ -209,7 +215,7 @@ class SubLayerView: UIView {
         // write horizontal value labels
         hValueLabelLayers.removeFromSuperlayer()
         hValueLabelLayers = CALayer()
-        hValueLabelLayers.frame = CGRect(x: canvasRect.origin.x, y: canvasRect.maxY, width: canvasRect.size.width, height: 30)
+        hValueLabelLayers.frame = CGRect(x: canvasRect.origin.x, y: canvasRect.maxY + 5, width: canvasRect.size.width, height: 30)
         hValueLabelLayers.masksToBounds = true
         
         for idx in -4..<(horizontalDivisorCount + 3) {
@@ -222,7 +228,7 @@ class SubLayerView: UIView {
                     string: String(format: "%.0f", tempoToWrite),
                     attributes: valueTextAttirbute)
                 valueLayer.frame = CGRect(
-                    x: (tempoToWrite - graphData.limitRect.origin.x ) * xScale,
+                    x: (tempoToWrite - graphData.limitRect.origin.x) * xScale,
                     y: 0,
                     width: valueLayer.preferredFrameSize().width,
                     height: valueLayer.preferredFrameSize().height)
@@ -230,7 +236,7 @@ class SubLayerView: UIView {
                 hValueLabelLayers.addSublayer(valueLayer)
             }
         }
-        hValueLabelLayers.transform = CATransform3DMakeTranslation(0, firstRowY, 0)
+        //hValueLabelLayers.transform = CATransform3DMakeTranslation(0, 5, 0)
         self.layer.addSublayer(hValueLabelLayers)
         
         // write vertical value labels
