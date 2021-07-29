@@ -39,7 +39,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    
+    <key>FacebookAutoLogAppEventsEnabled</key>
+    <true/>
     <key>CFBundleURLTypes</key>
     <array>
       <dict>

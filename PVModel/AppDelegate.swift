@@ -20,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
-
+        
+//        FBSDKSettings.setAutoLogAppEventsEnabled(true)
+        
         return true
     }
           
