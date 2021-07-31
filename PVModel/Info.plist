@@ -39,5 +39,22 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>FacebookAutoLogAppEventsEnabled</key>
+    <true/>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>1021077221969509</string>
+      </array>
+      </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>1021077221969509</string>
+    <key>FacebookClientToken</key>
+    <string>13c7021bb4f0d4d7cf89e1b38583ff3d</string>
+    <key>FacebookDisplayName</key>
+    <string>PVModel</string>
 </dict>
 </plist>
