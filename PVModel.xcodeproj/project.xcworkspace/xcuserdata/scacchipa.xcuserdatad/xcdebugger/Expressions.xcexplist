@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "SubLayerView.draw(_:):GrapherViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GraphData.shiftOnset():GraphData.swift">
+      </ContextState>
+      <ContextState
+         contextName = "TensionGrapherData.updateValue():GraphData.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GraphData.addValues(points:):GraphData.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SubLayerView.updateFrameLayer():GrapherViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "xSeparator * Double(realDivNumber)">
+            </PersistentString>
+            <PersistentString
+               value = "layer.preferredFrameSize().width">
+            </PersistentString>
+            <PersistentString
+               value = "graphData.limitRect">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SubLayerView.createSubLayers():GrapherViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "graphData.graphConfig.curveConfigs[idx].curveTitle">
+            </PersistentString>
+            <PersistentString
+               value = "layer.frame.origin.y">
+            </PersistentString>
+            <PersistentString
+               value = "layer.frame.origin.x">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GraphData.updateValue():GraphData.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in GraphData.updateValue():GraphData.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "pointVector">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ModelViewController.mainRefresh(timer:):ModelActivity.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "activedGrapherVC?.view">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FadeXYGrapherData.shiftOnset():GraphData.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "limitRect.origin.x - limitRect.size.width">
+            </PersistentString>
+            <PersistentString
+               value = "pointVector.last!.last!.x">
+            </PersistentString>
+            <PersistentString
+               value = "pointVector">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SubLayerView.createOrdTitleLayer():GrapherViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "graphConfig">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in TensionGrapherData.updateValue():GraphData.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SubLayerView.updatePictureLayer():GrapherViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "graphData.limitRect.height">
+            </PersistentString>
+            <PersistentString
+               value = "canvasRect.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

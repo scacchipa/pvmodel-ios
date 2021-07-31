@@ -143,37 +143,6 @@
                                     <constraint firstItem="s6O-28-8Gq" firstAttribute="top" secondItem="IfW-ab-ngS" secondAttribute="top" constant="6" id="oOU-oS-EHO"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddy-iJ-mQE" customClass="VerticalSlider" customModule="PVModel" customModuleProvider="target">
-                                <rect key="frame" x="8" y="57" width="28" height="453"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="28" id="gJB-M5-o0F"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minValue">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
-                                        <real key="value" value="100"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
-                                        <integer key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                        <integer key="value" value="100"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="thumbCorner">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="thumbRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" restorationIdentifier="containerView" translatesAutoresizingMaskIntoConstraints="NO" id="DKJ-k0-Bl6">
-                                <rect key="frame" x="44" y="52" width="323" height="458"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SSj-cr-b6U">
                                 <rect key="frame" x="8" y="8" width="359" height="36"/>
                                 <subviews>
@@ -235,23 +204,54 @@
                                     <constraint firstAttribute="bottom" secondItem="aOI-TX-AKg" secondAttribute="bottom" constant="4" id="xvX-b4-BJ7"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddy-iJ-mQE" customClass="VerticalSlider" customModule="PVModel" customModuleProvider="target">
+                                <rect key="frame" x="339" y="55" width="28" height="453"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="gJB-M5-o0F"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                        <real key="value" value="100"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="trackWidth">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <integer key="value" value="100"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="thumbCorner">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="thumbRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" restorationIdentifier="containerView" translatesAutoresizingMaskIntoConstraints="NO" id="DKJ-k0-Bl6">
+                                <rect key="frame" x="0.0" y="52" width="325" height="458"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="ddy-iJ-mQE" secondAttribute="bottom" constant="8" id="6Cm-Tv-E6k"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SSj-cr-b6U" secondAttribute="trailing" constant="8" id="8Tp-Oe-bcM"/>
                             <constraint firstItem="IfW-ab-ngS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="90f-t5-BSy"/>
-                            <constraint firstItem="ddy-iJ-mQE" firstAttribute="top" secondItem="SSj-cr-b6U" secondAttribute="bottom" constant="13" id="9Ya-Fj-ap9"/>
                             <constraint firstItem="DKJ-k0-Bl6" firstAttribute="firstBaseline" secondItem="SSj-cr-b6U" secondAttribute="baseline" constant="8" id="C27-B1-6GM"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DKJ-k0-Bl6" secondAttribute="trailing" constant="8" id="EpZ-rf-Dj5"/>
                             <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="DKJ-k0-Bl6" secondAttribute="bottom" constant="8" id="HND-Ry-PB8"/>
+                            <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="ddy-iJ-mQE" secondAttribute="bottom" constant="10" id="ROO-35-gRx"/>
                             <constraint firstItem="IfW-ab-ngS" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" constant="-8" id="bis-Oj-exB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ddy-iJ-mQE" secondAttribute="trailing" constant="8" id="gkl-bU-NCX"/>
                             <constraint firstItem="SSj-cr-b6U" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="guf-YQ-XfJ"/>
-                            <constraint firstItem="ddy-iJ-mQE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="n2n-MB-fRG"/>
+                            <constraint firstItem="ddy-iJ-mQE" firstAttribute="top" secondItem="SSj-cr-b6U" secondAttribute="bottom" constant="11" id="lPh-Hr-U8N"/>
                             <constraint firstItem="SSj-cr-b6U" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="oDe-el-vSS"/>
                             <constraint firstAttribute="trailing" secondItem="IfW-ab-ngS" secondAttribute="trailing" constant="8" id="ogF-QO-vYO"/>
-                            <constraint firstItem="DKJ-k0-Bl6" firstAttribute="leading" secondItem="ddy-iJ-mQE" secondAttribute="trailing" constant="8" id="tjh-sW-OIK"/>
+                            <constraint firstItem="ddy-iJ-mQE" firstAttribute="leading" secondItem="DKJ-k0-Bl6" secondAttribute="trailing" constant="14" id="vbn-bx-JuZ"/>
+                            <constraint firstItem="DKJ-k0-Bl6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yie-vR-i3e"/>
                         </constraints>
                     </view>
                     <connections>
