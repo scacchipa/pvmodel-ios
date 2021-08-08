@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "portada pag 1.4~universal@1x.png",
+      "filename" : "portada pag 1.4~universal@1x.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "portada pag 1.4~universal@2x.png",
+      "filename" : "portada pag 1.4~universal@2x.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "portada pag 1.4~universal@3x.png",
+      "filename" : "portada pag 1.4~universal@3x.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }
