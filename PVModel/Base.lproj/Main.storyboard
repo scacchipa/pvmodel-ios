@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IfW-ab-ngS">
-                                <rect key="frame" x="8" y="518" width="359" height="141"/>
+                                <rect key="frame" x="8" y="466" width="359" height="141"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contractility" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGC-L7-HJY">
                                         <rect key="frame" x="8" y="96" width="79" height="17"/>
@@ -205,7 +205,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddy-iJ-mQE" customClass="VerticalSlider" customModule="PVModel" customModuleProvider="target">
-                                <rect key="frame" x="339" y="55" width="28" height="453"/>
+                                <rect key="frame" x="339" y="39" width="28" height="392"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="gJB-M5-o0F"/>
@@ -232,7 +232,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" restorationIdentifier="containerView" translatesAutoresizingMaskIntoConstraints="NO" id="DKJ-k0-Bl6">
-                                <rect key="frame" x="0.0" y="52" width="325" height="458"/>
+                                <rect key="frame" x="0.0" y="52" width="325" height="413"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
@@ -242,12 +242,12 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SSj-cr-b6U" secondAttribute="trailing" constant="8" id="8Tp-Oe-bcM"/>
                             <constraint firstItem="IfW-ab-ngS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="90f-t5-BSy"/>
                             <constraint firstItem="DKJ-k0-Bl6" firstAttribute="firstBaseline" secondItem="SSj-cr-b6U" secondAttribute="baseline" constant="8" id="C27-B1-6GM"/>
-                            <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="DKJ-k0-Bl6" secondAttribute="bottom" constant="8" id="HND-Ry-PB8"/>
-                            <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="ddy-iJ-mQE" secondAttribute="bottom" constant="10" id="ROO-35-gRx"/>
-                            <constraint firstItem="IfW-ab-ngS" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" constant="-8" id="bis-Oj-exB"/>
+                            <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="DKJ-k0-Bl6" secondAttribute="bottom" constant="1" id="HND-Ry-PB8"/>
+                            <constraint firstItem="IfW-ab-ngS" firstAttribute="top" secondItem="ddy-iJ-mQE" secondAttribute="bottom" constant="35" id="ROO-35-gRx"/>
+                            <constraint firstItem="IfW-ab-ngS" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" constant="-60" id="bis-Oj-exB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ddy-iJ-mQE" secondAttribute="trailing" constant="8" id="gkl-bU-NCX"/>
                             <constraint firstItem="SSj-cr-b6U" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="guf-YQ-XfJ"/>
-                            <constraint firstItem="ddy-iJ-mQE" firstAttribute="top" secondItem="SSj-cr-b6U" secondAttribute="bottom" constant="11" id="lPh-Hr-U8N"/>
+                            <constraint firstItem="ddy-iJ-mQE" firstAttribute="top" secondItem="SSj-cr-b6U" secondAttribute="bottom" constant="-5" id="lPh-Hr-U8N"/>
                             <constraint firstItem="SSj-cr-b6U" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="oDe-el-vSS"/>
                             <constraint firstAttribute="trailing" secondItem="IfW-ab-ngS" secondAttribute="trailing" constant="8" id="ogF-QO-vYO"/>
                             <constraint firstItem="ddy-iJ-mQE" firstAttribute="leading" secondItem="DKJ-k0-Bl6" secondAttribute="trailing" constant="14" id="vbn-bx-JuZ"/>
