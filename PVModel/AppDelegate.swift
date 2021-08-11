@@ -1,5 +1,3 @@
-
-
 // Swift
 //
 // AppDelegate.swift
@@ -8,9 +6,8 @@ import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
-    
+
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -20,9 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
-        
-//        FBSDKSettings.setAutoLogAppEventsEnabled(true)
-        
+
         return true
     }
           
