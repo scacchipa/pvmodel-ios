@@ -27,20 +27,18 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<string>TRUE</string>
 	<key>FacebookAppID</key>
 	<string>fb1021077221969509</string>
 	<key>FacebookAutoLogAppEventsEnabled</key>
-	<true/>
+	<string>TRUE</string>
 	<key>FacebookClientToken</key>
 	<string>13c7021bb4f0d4d7cf89e1b38583ff3d</string>
 	<key>FacebookDisplayName</key>
 	<string>PVModel</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-    <key>FacebookAutoLogAppEventsEnabled</key>
-    <string>TRUE</string>
-    <key>FacebookAdvertiserIDCollectionEnabled</key>
-    <string>TRUE</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -62,4 +60,3 @@
 	</array>
 </dict>
 </plist>
-
