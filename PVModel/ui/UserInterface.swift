@@ -21,8 +21,8 @@ class VerticalSlider :UIControl {
     @IBInspectable public var maxValue: CGFloat = 100.0
     @IBInspectable public var maxColor: UIColor = .lightGray
     
-    @IBInspectable public var thumbRadius: CGFloat = 30.0
-    @IBInspectable public var thumbCorner: CGFloat = 10.0
+    @IBInspectable public var thumbRadius: CGFloat = 50.0
+    @IBInspectable public var thumbCorner: CGFloat = 25.0
     @IBInspectable public var thumbColor: UIColor = .purple
     
     @IBInspectable public var trackWidth: CGFloat = 5.0
@@ -128,7 +128,7 @@ class VerticalSlider :UIControl {
         return bounds.height - thumbOffset - y
     }
     func updateThumbRect() {
-        thumbRect = CGRect(origin: CGPoint(x: bounds.width / 2.5 - thumbRadius, y: yFromValue(value) - thumbRadius), size: CGSize(width: thumbRadius * 3.1, height: thumbRadius * 3.1))
+        thumbRect = CGRect(origin: CGPoint(x: bounds.width / 2 - thumbRadius, y: yFromValue(value) - thumbRadius), size: CGSize(width: thumbRadius * 2, height: thumbRadius * 2))
     }
 }
 @IBDesignable
@@ -139,8 +139,8 @@ class HorizontalSlider: UIControl {
     @IBInspectable public var maxValue: CGFloat = 100.0
     @IBInspectable public var maxColor: UIColor = .lightGray
     
-    @IBInspectable public var thumbRadius: CGFloat = 30.0
-    @IBInspectable public var thumbCorner: CGFloat = 10.0
+    @IBInspectable public var thumbRadius: CGFloat = 50.0
+    @IBInspectable public var thumbCorner: CGFloat = 25.0
     @IBInspectable public var thumbColor: UIColor = .purple
     
     @IBInspectable public var trackWidth: CGFloat = 1.0
@@ -240,8 +240,8 @@ class HorizontalSlider: UIControl {
     }
     func updateThumbRect() {
         thumbRect = CGRect(
-                        origin: CGPoint(x: xFromValue(value) - thumbRadius, y: bounds.height / 3 - thumbRadius),
-                        size: CGSize(width: thumbRadius * 3.1, height: thumbRadius * 3.1)
+                        origin: CGPoint(x: xFromValue(value) - thumbRadius, y: bounds.height / 2 - thumbRadius),
+                        size: CGSize(width: thumbRadius * 2, height: thumbRadius * 2)
                     )
     }
     
