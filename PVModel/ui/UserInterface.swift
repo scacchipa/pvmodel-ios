@@ -21,8 +21,8 @@ class VerticalSlider :UIControl {
     @IBInspectable public var maxValue: CGFloat = 100.0
     @IBInspectable public var maxColor: UIColor = .lightGray
     
-    @IBInspectable public var thumbRadius: CGFloat = 30.0
-    @IBInspectable public var thumbCorner: CGFloat = 10.0
+    @IBInspectable public var thumbRadius: CGFloat = 50.0
+    @IBInspectable public var thumbCorner: CGFloat = 25.0
     @IBInspectable public var thumbColor: UIColor = .purple
     
     @IBInspectable public var trackWidth: CGFloat = 5.0
@@ -46,7 +46,6 @@ class VerticalSlider :UIControl {
         return self.thumbRadius
     }()
     var thumbRect: CGRect!
-    var isMoving = false
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -96,37 +95,30 @@ class VerticalSlider :UIControl {
         context?.saveGState()
         context?.restoreGState()
     }
-
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.beginTracking(touch, with: event)
-        
-        if thumbRect.contains(touch.location(in: self)) {
-            isMoving = true
-        }
-        return true
+        return tracking(touch, with: event)
     }
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.continueTracking(touch, with: event)
+        return tracking(touch, with: event)
+    }
+    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        super.endTracking(touch, with: event)
+    }
+    func tracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        super.continueTracking(touch, with: event)
         
         let location = touch.location(in: self)
-        if isMoving {
-            let value = valueFromY(location.y)
-            
-            if value != minValue && value <= maxValue {
-                self.value = value
-                setNeedsDisplay()
-            }
+        let value = valueFromY(location.y)
+        
+        if value != minValue && value <= maxValue {
+            self.value = value
+            setNeedsDisplay()
         }
         self.sendActions(for: UIControl.Event.valueChanged)
         return true
     }
-    
-    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        super.endTracking(touch, with: event)
-        
-        isMoving = false;
-    }
-    
     func valueFromY(_ y: CGFloat) -> CGFloat {
         let yOffset = bounds.height - thumbOffset - y
         return (yOffset * maxValue) / trackLength()
@@ -136,7 +128,7 @@ class VerticalSlider :UIControl {
         return bounds.height - thumbOffset - y
     }
     func updateThumbRect() {
-        thumbRect = CGRect(origin: CGPoint(x: bounds.width / 2.5 - thumbRadius, y: yFromValue(value) - thumbRadius), size: CGSize(width: thumbRadius * 3.1, height: thumbRadius * 3.1))
+        thumbRect = CGRect(origin: CGPoint(x: bounds.width / 2 - thumbRadius, y: yFromValue(value) - thumbRadius), size: CGSize(width: thumbRadius * 2, height: thumbRadius * 2))
     }
 }
 @IBDesignable
@@ -147,8 +139,8 @@ class HorizontalSlider: UIControl {
     @IBInspectable public var maxValue: CGFloat = 100.0
     @IBInspectable public var maxColor: UIColor = .lightGray
     
-    @IBInspectable public var thumbRadius: CGFloat = 30.0
-    @IBInspectable public var thumbCorner: CGFloat = 10.0
+    @IBInspectable public var thumbRadius: CGFloat = 50.0
+    @IBInspectable public var thumbCorner: CGFloat = 25.0
     @IBInspectable public var thumbColor: UIColor = .purple
     
     @IBInspectable public var trackWidth: CGFloat = 1.0
@@ -172,7 +164,6 @@ class HorizontalSlider: UIControl {
         return self.thumbRadius
     }()
     var thumbRect: CGRect!
-    var isMoving = false
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -227,38 +218,30 @@ class HorizontalSlider: UIControl {
     
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.beginTracking(touch, with: event)
-        
-        if thumbRect.contains(touch.location(in: self)) {
-            isMoving = true
-        }
-        return true
+        return tracking(touch, with: event)
     }
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         super.continueTracking(touch, with: event)
-        
+        return tracking(touch, with: event)
+    }
+    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        super.endTracking(touch, with: event)
+    }
+    func tracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
-        if isMoving {
-            let value = valueFromX(location.x)
-            
-            if value != minValue && value <= maxValue {
-                self.value = value
-                setNeedsDisplay()
-            }
+        let value = valueFromX(location.x)
+        
+        if value != minValue && value <= maxValue {
+            self.value = value
+            setNeedsDisplay()
         }
         self.sendActions(for: UIControl.Event.valueChanged)
         return true
     }
-    
-    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        super.endTracking(touch, with: event)
-        
-        isMoving = false;
-    }
-    
     func updateThumbRect() {
         thumbRect = CGRect(
-                        origin: CGPoint(x: xFromValue(value) - thumbRadius, y: bounds.height / 3 - thumbRadius),
-                        size: CGSize(width: thumbRadius * 3.1, height: thumbRadius * 3.1)
+                        origin: CGPoint(x: xFromValue(value) - thumbRadius, y: bounds.height / 2 - thumbRadius),
+                        size: CGSize(width: thumbRadius * 2, height: thumbRadius * 2)
                     )
     }
     
